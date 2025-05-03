@@ -15,6 +15,25 @@ class UserController extends Controller
         ]);
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'normal' 
+        ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        $user = \App\Models\User::create($validated);
+
+        return response()->json([
+            'message' => 'Usuario creado correctamente.',
+            'user' => $user
+        ], 201);
+    }
+
     public function update(Request $request)
     {
         $user = Auth::user();

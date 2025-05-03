@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/Login/login/login.component';
 import { RegisterComponent } from './components/Login/register/register.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ComicListComponent } from './components/Productos/comic-list/comic-list.component';
 
 @NgModule({
@@ -17,8 +16,6 @@ import { ComicListComponent } from './components/Productos/comic-list/comic-list
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

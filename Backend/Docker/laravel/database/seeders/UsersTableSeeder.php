@@ -11,8 +11,8 @@ class UsersTableSeeder extends Seeder
 
         // O manual:
         User::create([
-            'name' => 'admin',
-            'email' => 'admin@frikomics.com',
+            'name' => 'javi',
+            'email' => 'javi@frikomics.com',
             'password' => Hash::make('password'),
         ]);
     }

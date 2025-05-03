@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
+
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
 })
 export class RegisterComponent {
   registerForm: FormGroup;

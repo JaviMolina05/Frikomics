@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ComicController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavoriteController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::group(['middleware' => ['cors']], function () {
-    
+
     // 🔐 Auth
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
@@ -47,8 +49,13 @@ Route::group(['middleware' => ['cors']], function () {
         Route::put('/cart/{id}', [CartController::class, 'update']);
         Route::delete('/cart/{id}', [CartController::class, 'destroy']);
         Route::get('/cart/clear', [CartController::class, 'clear']);
-
+        // Favoritos
+        Route::get('/favorites', [FavoriteController::class, 'index']);
+        Route::post('/favorites', [FavoriteController::class, 'store']);
+        Route::delete('/favorites/{comic}', [FavoriteController::class, 'destroy']);
         // 👤 Usuario (opcional)
         Route::get('/user', [UserController::class, 'show']);
+        Route::post('/user', [UserController::class, 'store']);
+
     });
 });

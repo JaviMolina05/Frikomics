@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth.service.spec'; // crea este servicio
+import { AuthService } from '../../../services/auth.service.spec';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  standalone: false
 })
 export class LoginComponent {
   user = {
@@ -17,8 +18,8 @@ export class LoginComponent {
   onSubmit() {
     this.authService.login(this.user).subscribe({
       next: (res) => {
-        localStorage.setItem('token', res.token); // guarda el token si usas Sanctum/JWT
-        this.router.navigate(['/dashboard']); // o donde sea
+        localStorage.setItem('token', res.token); 
+        this.router.navigate(['/dashboard']); 
       },
       error: (err) => {
         console.error('Error al iniciar sesión', err);

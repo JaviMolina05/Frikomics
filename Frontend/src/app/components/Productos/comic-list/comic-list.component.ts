@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ComicService } from '../comic.service';
+import { ComicService } from '../../../services/comic.service';
 import { Comic } from '../../../model/comic/comic.model';
 
 @Component({
   selector: 'app-comic-list',
   templateUrl: './comic-list.component.html',
-  styleUrls: ['./comic-list.component.scss']
+  styleUrls: ['./comic-list.component.scss'],
+  standalone: false
 })
 export class ComicListComponent implements OnInit {
   comics: Comic[] = [];
@@ -16,11 +17,11 @@ export class ComicListComponent implements OnInit {
 
   ngOnInit(): void {
     this.comicService.getAllComics().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.comics = data;
         this.isLoading = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         this.error = 'Error al cargar los cómics.';
         this.isLoading = false;
       }
