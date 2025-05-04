@@ -10,8 +10,13 @@ class FavoriteController extends Controller
 {
     public function index()
     {
-        return Auth::user()->favorites()->get();
+        $favorites = auth()->user()->favorites()->get();
+
+        return response()->json([
+            'favorites' => $favorites
+        ], 200);
     }
+
     public function store(Request $request)
     {
         $request->validate(['comic_id' => 'required|exists:comics,id']);
@@ -21,10 +26,21 @@ class FavoriteController extends Controller
         return response()->json(['message' => 'Comic añadido a favoritos.'], 201);
     }
 
-    public function destroy(Comic $comic)
-    {
-        Auth::user()->favorites()->detach($comic->id);
+    public function destroy($comicId)
+{
+    $user = auth()->user();
+    $comic = Comic::find($comicId);
 
-        return response()->json(['message' => 'Comic eliminado de favoritos.']);
+    if (!$comic || !$user->favorites()->find($comicId)) {
+        return response()->json([
+            'error' => 'El cómic no se encuentra en tus favoritos.'
+        ], 404);
     }
+
+    $user->favorites()->detach($comicId);
+
+    return response()->json([
+        'message' => 'Cómic eliminado de favoritos.'
+    ], 200);
+}
 }

@@ -20,7 +20,7 @@ use App\Http\Controllers\FavoriteController;
 |
 */
 
-Route::group(['middleware' => ['cors']], function () {
+Route::group([], function () {
 
     // 🔐 Auth
     Route::post('/login', [AuthController::class, 'login']);

@@ -13,7 +13,7 @@ class Comic extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'favorites');
     }
 
     public function auction()
@@ -25,7 +25,7 @@ class Comic extends Model
     {
         return $this->hasMany(Favorite::class);
     }
-
+    
     public function cartItems()
     {
         return $this->hasMany(CartItem::class);

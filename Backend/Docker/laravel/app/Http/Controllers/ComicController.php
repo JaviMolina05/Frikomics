@@ -10,18 +10,17 @@ class ComicController extends Controller
     public function index()
     {
         $comics = Comic::all();
-        $comicInfoView = [];
 
-        foreach ($comics as $comic) {
-            $comicInfoView[] = [
+        $comicInfoView = $comics->map(function ($comic) {
+            return [
                 'title' => $comic->title,
                 'description' => $comic->description,
                 'price' => $comic->price,
                 'stock' => $comic->stock,
                 'image' => $comic->image,
-                'user_id' => $comic->user_id
+                'user_id' => $comic->user_id,
             ];
-        }
+        });
 
         return response()->json(['comics' => $comicInfoView]);
     }
@@ -36,12 +35,6 @@ class ComicController extends Controller
             'image' => 'required|string',
             'user_id' => 'required|integer'
         ]);
-        
-        if ($validated->$request->fails()) {
-            return response()->json([
-                'error' => 'Error de validacion'
-            ], 403);
-        }
 
         Comic::create($validated);
 

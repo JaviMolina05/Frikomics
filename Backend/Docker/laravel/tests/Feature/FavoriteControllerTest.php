@@ -17,11 +17,15 @@ class FavoriteControllerTest extends TestCase
     public function testAgregarComicAFavoritos($comicValido, $statusEsperado, $estructuraEsperada)
     {
         $user = User::factory()->create();
-        $comic = $comicValido ? Comic::factory()->create() : ['id' => 9999];
+        // Crear un cómic válido si es necesario
+        $comic = $comicValido ? Comic::factory()->create() : null;
+
+        // Si el cómic no es válido, se simula un cómic no existente
+        $comicId = $comicValido ? $comic->id : 9999;
 
         $token = $user->createToken('TestToken')->plainTextToken;
         $response = $this->json('POST', '/api/favorites', [
-            'comic_id' => $comicValido ? $comic->id : $comic['id']
+            'comic_id' => $comicId
         ], [
             'Authorization' => 'Bearer ' . $token
         ]);
@@ -30,13 +34,13 @@ class FavoriteControllerTest extends TestCase
         $response->assertJsonStructure($estructuraEsperada);
     }
 
-    public function agregarFavoritoProvider()
-    {
-        return [
-            'correcto' => [true, 200, ['message']],
-            'erroneo' => [false, 404, ['error']]
-        ];
-    }
+   public function agregarFavoritoProvider()
+{
+    return [
+        'correcto' => [true, 201, ['message']],  // Cambié 200 por 201
+        'erroneo' => [false, 422, ['message', 'errors']],
+    ];
+}
 
     /**
      * @dataProvider verFavoritosProvider
@@ -45,6 +49,7 @@ class FavoriteControllerTest extends TestCase
     {
         $user = User::factory()->create();
         if ($esperaFavoritos) {
+            // Crear un cómic y agregarlo a favoritos
             $comic = Comic::factory()->create();
             $user->favorites()->attach($comic->id);
         }
@@ -59,12 +64,12 @@ class FavoriteControllerTest extends TestCase
     }
 
     public function verFavoritosProvider()
-    {
-        return [
-            'con favoritos' => [true],
-            'sin favoritos' => [false]
-        ];
-    }
+{
+    return [
+        'con favoritos' => [true],
+        'sin favoritos' => [false]
+    ];
+}
 
     /**
      * @dataProvider eliminarFavoritoProvider
@@ -72,14 +77,16 @@ class FavoriteControllerTest extends TestCase
     public function testEliminarComicDeFavoritos($comicValido, $statusEsperado, $estructuraEsperada)
     {
         $user = User::factory()->create();
-        $comic = $comicValido ? Comic::factory()->create() : ['id' => 9999];
+        $comic = $comicValido ? Comic::factory()->create() : null;
 
+        // Si el cómic es válido, lo agregamos a favoritos
+        $comicId = $comicValido ? $comic->id : 9999;
         if ($comicValido) {
             $user->favorites()->attach($comic->id);
         }
 
         $token = $user->createToken('TestToken')->plainTextToken;
-        $response = $this->json('DELETE', '/api/favorites/' . ($comicValido ? $comic->id : $comic['id']), [], [
+        $response = $this->json('DELETE', '/api/favorites/' . $comicId, [], [
             'Authorization' => 'Bearer ' . $token
         ]);
 
