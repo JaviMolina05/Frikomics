@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->text('description');
             $table->decimal('price', 8, 2);
             $table->string('image')->nullable();
+            $table->integer('stock');
             $table->string('editorial');
             $table->string('genero');
             $table->enum('status', ['available', 'sold', 'in_auction'])->default('available');

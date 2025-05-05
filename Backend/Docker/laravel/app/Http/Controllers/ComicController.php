@@ -30,10 +30,10 @@ class ComicController extends Controller
         $validated = $request->validate([
             'title' => 'required|string',
             'description' => 'required|string',
-            'price' => 'required|integer',
-            'stock' => 'required|integer',
+            'price' => 'required|intenger',
+            'stock' => 'required|intenger',
             'image' => 'required|string',
-            'user_id' => 'required|integer'
+            'user_id' => 'required|intenger'
         ]);
 
         Comic::create($validated);
