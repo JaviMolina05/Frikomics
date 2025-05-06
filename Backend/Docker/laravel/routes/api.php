@@ -7,22 +7,11 @@ use App\Http\Controllers\ComicController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FavoriteController;
-
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\CartItemController;
 
 Route::group([], function () {
 
-    // 🔐 Auth
+    // 🔐 Autenticación
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 
@@ -30,10 +19,10 @@ Route::group([], function () {
     Route::get('/comics', [ComicController::class, 'index']);
     Route::get('/comics/{id}', [ComicController::class, 'show']);
 
-    // 🛒 Ver carrito sin login (opcional)
+    // 🛒 Carrito público (opcional)
     Route::get('/cart', [CartController::class, 'index']);
 
-    // 🔐 Rutas protegidas
+    // 🔐 Rutas protegidas por Sanctum
     Route::middleware(['auth:sanctum'])->group(function () {
 
         // 🔓 Logout
@@ -44,18 +33,25 @@ Route::group([], function () {
         Route::put('/comics/{id}', [ComicController::class, 'update']);
         Route::delete('/comics/{id}', [ComicController::class, 'destroy']);
 
-        // 🛒 Carrito
+        // 🛒 Carrito del usuario autenticado
+        Route::get('/cart', [CartController::class, 'show']);
         Route::post('/cart', [CartController::class, 'store']);
         Route::put('/cart/{id}', [CartController::class, 'update']);
         Route::delete('/cart/{id}', [CartController::class, 'destroy']);
-        Route::get('/cart/clear', [CartController::class, 'clear']);
-        // Favoritos
+        Route::delete('/cart/clear', [CartController::class, 'clear']);
+
+        // 🧺 Cart Items (necesario para tests)
+        Route::post('/cart-items', [CartItemController::class, 'store']);
+        Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
+        Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
+
+        // ❤️ Favoritos
         Route::get('/favorites', [FavoriteController::class, 'index']);
         Route::post('/favorites', [FavoriteController::class, 'store']);
         Route::delete('/favorites/{comic}', [FavoriteController::class, 'destroy']);
+
         // 👤 Usuario (opcional)
         Route::get('/user', [UserController::class, 'show']);
         Route::post('/user', [UserController::class, 'store']);
-
     });
 });

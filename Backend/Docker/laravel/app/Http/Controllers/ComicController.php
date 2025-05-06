@@ -26,35 +26,44 @@ class ComicController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'price' => 'required|intenger',
-            'stock' => 'required|intenger',
-            'image' => 'required|string',
-            'user_id' => 'required|intenger'
-        ]);
+{
+    $validated = $request->validate([
+        'title' => 'required|string',
+        'description' => 'required|string',
+        'price' => 'required|numeric',
+        'stock' => 'required|integer',
+        'image' => 'nullable|string',
+        'editorial' => 'required|string',
+        'genero' => 'required|string',
+        'status' => 'nullable|in:available,sold,in_auction',
+    ]);
 
-        Comic::create($validated);
+    $validated['user_id'] = auth()->id();
 
-        return response()->json([
-            'message' => 'Comic creado exitosamente.'
-        ], 201);
-    }
+    Comic::create($validated);
+
+    return response()->json([
+        'message' => 'Comic creado exitosamente.'
+    ], 201);
+}
+
 
     public function update(Request $request, $id)
     {
         $comic = Comic::findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'sometimes|required|string',
-            'description' => 'sometimes|required|string',
-            'price' => 'sometimes|required|integer',
-            'stock' => 'sometimes|required|integer',
-            'image' => 'sometimes|required|string',
-            'user_id' => 'sometimes|required|integer'
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'image' => 'nullable|string',
+            'editorial' => 'required|string',
+            'genero' => 'required|string',
+            'status' => 'in:available,sold,in_auction',
+            'user_id' => 'required|integer',
         ]);
+        
 
         $comic->update($validated);
 

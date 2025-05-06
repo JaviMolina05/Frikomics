@@ -2,24 +2,23 @@
 
 namespace Database\Factories;
 
-use App\Models\Comic;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ComicFactory extends Factory
 {
-    protected $model = Comic::class;
+    protected $model = \App\Models\Comic::class;
 
-    public function definition(): array
+    public function definition()
     {
         return [
-            'user_id' => User::factory(),
-            'title' => $this->faker->sentence(3),
-            'description' => $this->faker->paragraph(3),
-            'price' => $this->faker->randomFloat(2, 1, 100),
-            'image' => $this->faker->imageUrl(640, 480, 'comics', true),
-            'editorial' => $this->faker->randomElement(['Marvel', 'DC', 'Image Comics', 'Dark Horse']),
-            'genero' => $this->faker->randomElement(['Acción', 'Aventura', 'Fantasía', 'Ciencia ficción']),
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
+            'price' => $this->faker->randomFloat(2, 5, 100),
+            'stock' => $this->faker->numberBetween(1, 50),
+            'image' => $this->faker->imageUrl,
+            'editorial' => $this->faker->company,
+            'genero' => 'Acción',
+            'user_id' => \App\Models\User::factory(),
         ];
     }
 }

@@ -4,41 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CartItem;
+use App\Models\User;
 
 class CartController extends Controller
 {
-    public function show($userId)
-    {
-        $items = CartItem::with('comic') 
-            ->where('user_id', $userId)
-            ->get();
-
-        $cart = [];
-
-        foreach ($items as $item) {
-            $cart[] = [
-                'comic_id' => $item->comic->id,
-                'title' => $item->comic->title,
-                'price' => $item->comic->price,
-                'quantity' => $item->quantity,
-                'total_price' => $item->quantity * $item->comic->price,
-            ];
-        }
-
-        return response()->json([
-            'user_id' => $userId,
-            'items' => $cart,
-        ]);
-    }
-    public function clear()
+    public function show(User $user)
 {
-    $userId = auth()->id();
-    $deleted = CartItem::where('user_id', $userId)->delete();
-
+    $items = $user->cartItems()->with('product')->get();
+    
     return response()->json([
-        'message' => 'Tu carrito ha sido vaciado.',
-        'deleted_items' => $deleted
+        'user_id' => $user->id,
+        'items' => $items->map(function ($item) {
+            return [
+                'product_id' => $item->product_id,
+                'title' => $item->product->title,
+                'price' => $item->product->price,
+                'quantity' => $item->quantity,
+                'total_price' => $item->quantity * $item->product->price,
+            ];
+        }),
     ]);
 }
+
+public function clear()
+{
+    $user = auth()->user();
+    $deletedItems = $user->cartItems()->delete();
+
+    return response()->json([
+        'message' => 'Carrito vaciado correctamente',
+        'deleted_items' => $deletedItems,
+    ]);
+}
+
 
 }

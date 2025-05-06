@@ -8,7 +8,14 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     /**
-     * Define the application's command schedule.
+     * Los comandos personalizados registrados.
+     */
+    protected $commands = [
+        \App\Console\Commands\ImportMarvelComics::class,
+    ];
+
+    /**
+     * Define el cron para los comandos.
      */
     protected function schedule(Schedule $schedule): void
     {
@@ -16,12 +23,11 @@ class Kernel extends ConsoleKernel
     }
 
     /**
-     * Register the commands for the application.
+     * Registra los comandos para la consola.
      */
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }

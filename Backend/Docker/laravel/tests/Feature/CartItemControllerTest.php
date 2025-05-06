@@ -20,19 +20,18 @@ class CartItemControllerTest extends TestCase
         $user = User::factory()->create();
         $comic = $comicValido ? Comic::factory()->create() : null;
 
-        $comicId = $comicValido ? $comic->id : 9999;
+        $productId = $comicValido ? $comic->id : 9999;
 
         $token = $user->createToken('TestToken')->plainTextToken;
 
         $datos = [
-            'cart_id' => 1,  // Suponiendo que el carrito tiene id 1
-            'comic_id' => $comicId,
+            'product_id' => $productId,
             'quantity' => 2
         ];
 
-        $response = $this->json('POST', '/api/cart-items', $datos, [
+        $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token
-        ]);
+        ])->json('POST', '/api/cart-items', $datos);
 
         $response->assertStatus($statusEsperado);
         $response->assertJsonStructure($estructuraEsperada);
@@ -41,7 +40,7 @@ class CartItemControllerTest extends TestCase
     public function agregarAlCarritoProvider()
     {
         return [
-            'correcto' => [true, 201, ['message', 'cart_item' => ['id', 'cart_id', 'comic_id', 'quantity', 'created_at', 'updated_at']]],
+            'correcto' => [true, 201, ['message', 'cart_item' => ['id', 'user_id', 'product_id', 'quantity', 'created_at', 'updated_at']]],
             'erroneo' => [false, 422, ['message', 'errors']],
         ];
     }
@@ -53,20 +52,22 @@ class CartItemControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $comic = $comicValido ? Comic::factory()->create() : null;
+
         $cartItem = CartItem::factory()->create([
-            'cart_id' => 1,
-            'comic_id' => $comic ? $comic->id : 9999,
+            'user_id' => $user->id,
+            'product_id' => $comic ? $comic->id : 9999,
             'quantity' => 2
         ]);
+
         $token = $user->createToken('TestToken')->plainTextToken;
 
         $datos = [
             'quantity' => 5
         ];
 
-        $response = $this->json('PUT', '/api/cart-items/' . $cartItem->id, $datos, [
+        $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token
-        ]);
+        ])->json('PUT', '/api/cart-items/' . $cartItem->id, $datos);
 
         $response->assertStatus($statusEsperado);
         $response->assertJsonStructure($estructuraEsperada);
@@ -87,18 +88,18 @@ class CartItemControllerTest extends TestCase
     {
         $user = User::factory()->create();
         $comic = $comicValido ? Comic::factory()->create() : null;
+
         $cartItem = $comicValido ? CartItem::factory()->create([
-            'cart_id' => 1,
-            'comic_id' => $comic->id,
+            'user_id' => $user->id,
+            'product_id' => $comic->id,
             'quantity' => 2
         ]) : null;
+
         $token = $user->createToken('TestToken')->plainTextToken;
 
-        $comicId = $comicValido ? $comic->id : 9999;
-
-        $response = $this->json('DELETE', '/api/cart-items/' . $cartItem->id, [], [
+        $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token
-        ]);
+        ])->json('DELETE', '/api/cart-items/' . ($cartItem->id ?? 9999), []);
 
         $response->assertStatus($statusEsperado);
         $response->assertJsonStructure($estructuraEsperada);
