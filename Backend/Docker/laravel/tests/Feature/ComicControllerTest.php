@@ -30,22 +30,30 @@ class ComicControllerTest extends TestCase
     public function crearComicProvider()
     {
         return [
-            'datos válidos' => [[
-                'title' => 'Comic Test',
-                'description' => 'Descripción',
-                'price' => 100,
-                'stock' => 5,
-                'image' => 'http://example.com/image.jpg',
-                'user_id' => 1
-            ], 201, ['message']],
-            'datos inválidos' => [[
-                'title' => '',
-                'description' => '',
-                'price' => 'no-numero',
-                'stock' => null,
-                'image' => '',
-                'user_id' => null
-            ], 422, ['message', 'errors']],
+            'datos válidos' => [
+                [
+                    'title' => 'Batman: Year One',
+                    'description' => 'A classic Batman story.',
+                    'price' => 19.99,
+                    'stock' => 10,
+                    'editorial' => 'DC Comics',
+                    'genero' => 'Acción'
+                ],
+                201,
+                ['message']
+            ],
+            'datos inválidos' => [
+                [
+                    'title' => '',
+                    'description' => '',
+                    'price' => 'no-numero',
+                    'stock' => null,
+                    'image' => '',
+                    'user_id' => null
+                ],
+                422,
+                ['message', 'errors']
+            ],
         ];
     }
 
@@ -80,13 +88,28 @@ class ComicControllerTest extends TestCase
     public function actualizarComicProvider()
     {
         return [
-            'actualización válida' => [[
-                'title' => 'Nuevo Título',
-                'price' => 200
-            ], 200, ['message']],
-            'actualización inválida' => [[
-                'price' => 'no-es-numero'
-            ], 422, ['message', 'errors']],
+            'actualización válida' => [
+                [
+                    'title' => 'Batman: The Long Halloween',
+                    'description' => 'Updated description of the comic.',
+                    'price' => 24.99,
+                    'stock' => 15,
+                    'editorial' => 'DC Comics',
+                    'genero' => 'Misterio',
+                    'status' => 'available',
+                    'image' => 'https://example.com/newimage.jpg',
+                    'user_id' => 1
+                ],
+                200,
+                ['message']
+            ],
+            'actualización inválida' => [
+                [
+                    'price' => 'no-es-numero'
+                ],
+                422,
+                ['message', 'errors']
+            ],
         ];
     }
 

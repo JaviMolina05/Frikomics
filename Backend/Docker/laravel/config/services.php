@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'marvel' => [
+    'public' => env('df6d935b99f019b534d1ad2829746958'),
+    'private' => env('1e60b562fa2e71f4bc5de7b5ec99f4b4cabde62e'),
+],
+
+
 ];

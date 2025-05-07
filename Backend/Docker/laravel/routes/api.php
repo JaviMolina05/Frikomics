@@ -34,7 +34,7 @@ Route::group([], function () {
         Route::delete('/comics/{id}', [ComicController::class, 'destroy']);
 
         // 🛒 Carrito del usuario autenticado
-        Route::get('/cart', [CartController::class, 'show']);
+        Route::get('/cart/{user}', [CartController::class, 'show']);
         Route::post('/cart', [CartController::class, 'store']);
         Route::put('/cart/{id}', [CartController::class, 'update']);
         Route::delete('/cart/{id}', [CartController::class, 'destroy']);

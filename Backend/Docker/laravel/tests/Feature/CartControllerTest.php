@@ -42,6 +42,7 @@ class CartControllerTest extends TestCase
                 ]
             ]
         ]);
+        dump($response->json());
     }
 
     public function testVerCarritoVacio()
