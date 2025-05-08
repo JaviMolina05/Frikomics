@@ -77,10 +77,12 @@ class ComicControllerTest extends TestCase
 
         $token = $user->createToken('TestToken')->plainTextToken;
 
+        $datos['user_id'] = $user->id;
+
         $response = $this->json('PUT', "/api/comics/{$comic->id}", $datos, [
             'Authorization' => 'Bearer ' . $token
         ]);
-
+        
         $response->assertStatus($esperaStatus);
         $response->assertJsonStructure($estructuraEsperada);
     }
@@ -98,7 +100,6 @@ class ComicControllerTest extends TestCase
                     'genero' => 'Misterio',
                     'status' => 'available',
                     'image' => 'https://example.com/newimage.jpg',
-                    'user_id' => 1
                 ],
                 200,
                 ['message']

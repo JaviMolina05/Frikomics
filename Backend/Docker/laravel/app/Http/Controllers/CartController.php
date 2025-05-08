@@ -10,32 +10,53 @@ class CartController extends Controller
 {
     public function show(User $user)
 {
-    $items = $user->cartItems()->with('product')->get();
+    $items = $user->cartItems()->with('comic')->get();
     
     return response()->json([
         'user_id' => $user->id,
         'items' => $items->map(function ($item) {
             return [
-                'product_id' => $item->product_id,
-                'title' => $item->product->title,
-                'price' => $item->product->price,
+                'comic_id' => $item->comic->id ?? $item->product_id, 
+                'title' => $item->comic->title,
+                'price' => $item->comic->price,
                 'quantity' => $item->quantity,
-                'total_price' => $item->quantity * $item->product->price,
+                'total_price' => $item->quantity * $item->comic->price,
             ];
         }),
     ]);
 }
 
+
 public function clear()
 {
-    $user = auth()->user();
-    $deletedItems = $user->cartItems()->delete();
+    try {
+        $user = auth()->user();
+        $items = $user->cartItems()->with('comic')->get();
 
-    return response()->json([
-        'message' => 'Carrito vaciado correctamente',
-        'deleted_items' => $deletedItems,
-    ]);
+        $deletedItems = $items->map(function ($item) {
+            return [
+                'comic_id' => $item->product_id,
+                'title' => $item->comic->title,
+                'price' => $item->comic->price,
+                'quantity' => $item->quantity,
+                'total_price' => $item->quantity * $item->comic->price,
+            ];
+        });
+
+        $user->cartItems()->delete();
+
+        return response()->json([
+            'message' => 'Carrito vaciado correctamente',
+            'deleted_items' => $deletedItems,
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => $e->getMessage(),
+        ], 500);
+    }
 }
+
+
 
 
 }

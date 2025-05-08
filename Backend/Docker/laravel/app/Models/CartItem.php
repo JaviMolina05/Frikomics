@@ -16,8 +16,9 @@ class CartItem extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product()  // puedes llamarlo "comic" si prefieres
+    public function comic()  
     {
         return $this->belongsTo(Comic::class, 'product_id');
     }
+    
 }

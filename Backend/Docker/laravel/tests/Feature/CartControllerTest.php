@@ -29,12 +29,14 @@ class CartControllerTest extends TestCase
             'Authorization' => "Bearer {$token}"
         ])->getJson("/api/cart/{$user->id}");
 
+        $response->dump();
+
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'user_id',
             'items' => [
                 [
-                    'product_id',
+                    'comic_id',
                     'title',
                     'price',
                     'quantity',

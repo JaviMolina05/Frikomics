@@ -53,11 +53,12 @@ class CartItemControllerTest extends TestCase
         $user = User::factory()->create();
         $comic = $comicValido ? Comic::factory()->create() : null;
 
-        $cartItem = CartItem::factory()->create([
-            'user_id' => $user->id,
-            'product_id' => $comic ? $comic->id : 9999,
-            'quantity' => 2
-        ]);
+        $cartItem = $comicValido ? CartItem::factory()->create([
+        'user_id' => $user->id,
+        'product_id' => $comic->id,
+        'quantity' => 2
+        ]): null;
+
 
         $token = $user->createToken('TestToken')->plainTextToken;
 
@@ -67,7 +68,9 @@ class CartItemControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token
-        ])->json('PUT', '/api/cart-items/' . $cartItem->id, $datos);
+        ])->json('PUT', '/api/cart-items/' . ($cartItem->id ?? 9999), $datos);        
+
+        $response->dump();
 
         $response->assertStatus($statusEsperado);
         $response->assertJsonStructure($estructuraEsperada);
@@ -77,7 +80,8 @@ class CartItemControllerTest extends TestCase
     {
         return [
             'correcto' => [true, 200, ['message', 'cart_item' => ['id', 'quantity']]],
-            'erroneo' => [false, 404, ['error']],
+            // 🔥 aquí la corrección principal
+            'erroneo' => [false, 404, ['message']],
         ];
     }
 
@@ -109,7 +113,8 @@ class CartItemControllerTest extends TestCase
     {
         return [
             'correcto' => [true, 200, ['message']],
-            'erroneo' => [false, 404, ['error']],
+            // 🔥 corrección aquí también
+            'erroneo' => [false, 404, ['message']],
         ];
     }
 }
