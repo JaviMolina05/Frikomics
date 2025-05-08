@@ -1,11 +1,34 @@
-import { Component } from '@angular/core';
+// comics-productos.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ComicService } from '../../../services/comic.service';
+import { Comic } from '../../../model/comic/comic.model';
 
 @Component({
   selector: 'app-comics-productos',
-  standalone: false,
   templateUrl: './comics-productos.component.html',
-  styleUrl: './comics-productos.component.scss'
+  styleUrls: ['./comics-productos.component.scss'],
+  standalone: false
 })
-export class ComicsProductosComponent {
+export class ComicsProductosComponent implements OnInit {
+  comics: Comic[] = [];
+  isLoading = true;
+  error: string = '';
 
+  constructor(private comicService: ComicService) {}
+
+  ngOnInit(): void {
+    this.comicService.getAllComics().subscribe({
+      next: (data: any) => {
+        this.comics = data;
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        this.error = 'Error al cargar los cómics.';
+        this.isLoading = false;
+      }
+    });
+  }
+  trackById(index: number, comic: Comic) {
+    return comic.id;
+  }  
 }

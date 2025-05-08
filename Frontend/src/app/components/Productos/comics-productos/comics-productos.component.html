@@ -1,3 +1,6 @@
-@for (item of items; track $index) {
-    
-}
+<div class="products">
+    @for (comic of comics; track trackById) {
+      <app-comic-list [comic]="comic"></app-comic-list>
+    }
+  </div>
+  
