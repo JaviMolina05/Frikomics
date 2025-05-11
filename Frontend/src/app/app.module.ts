@@ -10,6 +10,9 @@ import { ComicsProductosComponent } from './components/Productos/comics-producto
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ComicService } from './services/comic.service';
+import { RegisterComponent } from './components/Login/register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,15 +20,18 @@ import { AppRoutingModule } from './app-routing.module';
     LoginComponent,
     ComicListComponent,
     ComicsProductosComponent,
-    RouterModule,
-    AppRoutingModule,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    RouterModule,
+    HttpClientModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [ComicService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

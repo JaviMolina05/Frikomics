@@ -24,6 +24,12 @@ class ImportMarvelComics extends Command
             'hash' => $hash,
             'limit' => 10,
         ]);
+dd([
+    'timestamp' => $ts,
+    'private' => $private,
+    'public' => $public,
+    'hash' => $hash,
+]);
 
         $comics = $response->json()['data']['results'];
 
