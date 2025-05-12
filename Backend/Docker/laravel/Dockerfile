@@ -9,13 +9,16 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     curl \
+    nginx \
     git \
     libzip-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Instala Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Configuracion Nginx
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /var/www
 
-CMD ["php-fpm"]
+CMD service nginx start && php-fpm

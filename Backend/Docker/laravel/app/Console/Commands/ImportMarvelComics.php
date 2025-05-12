@@ -13,10 +13,11 @@ class ImportMarvelComics extends Command
 
     public function handle()
     {
-        $public = config('services.marvel.public');
-        $private = config('services.marvel.private');
+        $public = trim(config('services.marvel.public'));
+        $private = trim(config('services.marvel.private'));
         $ts = time();
         $hash = md5($ts . $private . $public);
+
 
         $response = Http::get('https://gateway.marvel.com/v1/public/comics', [
             'apikey' => $public,
@@ -24,31 +25,38 @@ class ImportMarvelComics extends Command
             'hash' => $hash,
             'limit' => 10,
         ]);
-dd([
-    'timestamp' => $ts,
-    'private' => $private,
-    'public' => $public,
-    'hash' => $hash,
-]);
 
-        $comics = $response->json()['data']['results'];
+        if ($response->successful()) {
+            $json = $response->json();
 
-        foreach ($comics as $comic) {
-            Comic::updateOrCreate(
-                ['title' => $comic['title']],
-                [
-                    'description' => $comic['description'] ?? 'Sin descripción',
-                    'price' => rand(5, 25), // Marvel no da precios, puedes generar uno aleatorio
-                    'stock' => rand(1, 10),
-                    'image' => $comic['thumbnail']['path'] . '.' . $comic['thumbnail']['extension'],
-                    'editorial' => 'Marvel',
-                    'genero' => 'Superhéroes', // valor predeterminado
-                    'status' => 'available',
-                    'user_id' => 1, // admin
-                ]
-            );
+            if (isset($json['data']['results'])) {
+                $comics = $json['data']['results'];
+
+                foreach ($comics as $comic) {
+                    Comic::updateOrCreate(
+                        ['title' => $comic['title']],
+                        [
+                            'description' => $comic['description'] ?? 'Sin descripción',
+                            'price' => rand(5, 25),
+                            'stock' => rand(1, 10),
+                            'image' => $comic['thumbnail']['path'] . '.' . $comic['thumbnail']['extension'],
+                            'editorial' => 'Marvel',
+                            'genero' => 'Superhéroes',
+                            'status' => 'available',
+                            'user_id' => 1,
+                        ]
+                    );
+                }
+
+                $this->info('Cómics importados exitosamente.');
+            } else {
+                $this->error('La respuesta no contiene resultados.');
+                dd($json); // Para inspeccionar el error
+            }
+        } else {
+            $this->error('Error al llamar la API de Marvel.');
+            dd($response->json()); // Muestra el error exacto
         }
 
-        $this->info('Comics importados exitosamente.');
     }
 }
