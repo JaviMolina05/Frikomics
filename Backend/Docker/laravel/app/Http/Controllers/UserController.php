@@ -21,10 +21,10 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed',
-            'role' => 'normal' 
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['role'] = 'normal';
 
         $user = \App\Models\User::create($validated);
 

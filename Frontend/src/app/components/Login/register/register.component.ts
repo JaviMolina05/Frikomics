@@ -30,7 +30,8 @@ export class RegisterComponent {
     const payload = {
       name: this.user.name,
       email: this.user.email,
-      password: this.user.password
+      password: this.user.password,
+      password_confirmation: this.user.confirmPassword
     };
 
     // Enviar al backend

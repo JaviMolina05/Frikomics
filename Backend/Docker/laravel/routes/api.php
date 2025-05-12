@@ -22,6 +22,10 @@ Route::group([], function () {
     // 🛒 Carrito público (opcional)
     Route::get('/cart', [CartController::class, 'index']);
 
+    // 👤 Usuario (opcional)
+    Route::get('/user', [UserController::class, 'show']);
+    Route::post('/user', [UserController::class, 'store']);
+
     // 🔐 Rutas protegidas por Sanctum
     Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -49,9 +53,5 @@ Route::group([], function () {
         Route::get('/favorites', [FavoriteController::class, 'index']);
         Route::post('/favorites', [FavoriteController::class, 'store']);
         Route::delete('/favorites/{comic}', [FavoriteController::class, 'destroy']);
-
-        // 👤 Usuario (opcional)
-        Route::get('/user', [UserController::class, 'show']);
-        Route::post('/user', [UserController::class, 'store']);
     });
 });
