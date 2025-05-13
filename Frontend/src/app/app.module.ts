@@ -13,7 +13,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ComicService } from './services/comic.service';
 import { RegisterComponent } from './components/Login/register/register.component';
-import { AuthInterceptor } from './services/auth/auth-interceptor.service';  // 👈 importa tu interceptor
+import { AuthInterceptor } from './services/auth/auth-interceptor.service';
+import { MiCuentaComponent } from './components/cuenta/mi-cuenta/mi-cuenta.component';
+import { FavoritosComponent } from './components/cuenta/favoritos/favoritos.component';
+import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/hitorial-pedidos.component';
+import { SidebarComponent } from './components/cuenta/sidebar/sidebar.component';  // 👈 importa tu interceptor
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { AuthInterceptor } from './services/auth/auth-interceptor.service';  // 
     ComicsProductosComponent,
     HomeComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    MiCuentaComponent,
+    FavoritosComponent,
+    HitorialPedidosComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

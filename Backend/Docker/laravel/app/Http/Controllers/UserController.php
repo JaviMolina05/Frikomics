@@ -20,7 +20,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|confirmed', //Añadir min6 mas tarde
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -41,7 +41,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:users,email,' . $user->id,
-            'password' => 'sometimes|string|min:6|confirmed',
+            'password' => 'sometimes|string|confirmed',
         ]);
 
         if (isset($validated['password'])) {

@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComicService {
-  private apiUrl = 'http://localhost:8000/api/comics';
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}
 
   getAllComics(): Observable<Comic[]> {
-    return this.http.get<Comic[]>(this.apiUrl);
+    return this.http.get<Comic[]>(`${this.apiUrl}/comics/{id}`);
   }
 }
