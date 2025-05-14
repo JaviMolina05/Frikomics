@@ -59,4 +59,8 @@ aside {
   height: 100px;
   background-color: #ddd;
   margin-bottom: 10px;
+}
+
+.logout {
+  cursor: pointer;
 }/*# sourceMappingURL=sidebar.component.css.map */

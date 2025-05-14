@@ -23,7 +23,7 @@ class ImportMarvelComics extends Command
         $response = Http::get('https://gateway.marvel.com/v1/public/comics', [
             'apikey' => $public,
             'ts' => $ts,
-            'hash' => $hash,
+            'hash' => "50b6e01e499d2affd40c0af715404839",
             'limit' => 10,
         ]);
 
