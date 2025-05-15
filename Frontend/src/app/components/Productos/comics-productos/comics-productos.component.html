@@ -1,10 +1,10 @@
-<div class="products">
-    @for (comic of comics; track trackById) {
-      <app-comic-list [comic]="comic"></app-comic-list>
-    }
-</div>
-<div *ngIf="authService.isAdmin()">
+@if (authService.isAdmin()) {
+<div>
   <button>Eliminar producto</button>
 </div>
-
-  
+}
+<div class="products">
+  @for (comic of comics; track trackById) {
+  <app-comic-list [comic]="comic"></app-comic-list>
+  }
+</div>
