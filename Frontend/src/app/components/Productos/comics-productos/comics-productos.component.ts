@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComicService } from '../../../services/comic.service';
 import { Comic } from '../../../model/comic/comic.model';
+import { AuthService } from '../../../services/auth.service.spec';
 
 @Component({
   selector: 'app-comics-productos',
@@ -14,8 +15,11 @@ export class ComicsProductosComponent implements OnInit {
   isLoading = true;
   error: string = '';
 
-  constructor(private comicService: ComicService) {}
-
+  constructor(
+    private comicService: ComicService,
+    public authService: AuthService
+  ) {}
+  
   ngOnInit(): void {
     this.comicService.getAllComics().subscribe({
       next: (data: any) => {
@@ -31,4 +35,5 @@ export class ComicsProductosComponent implements OnInit {
   trackById(index: number, comic: Comic) {
     return comic.id;
   }  
+
 }
