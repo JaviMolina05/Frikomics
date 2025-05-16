@@ -1,0 +1,84 @@
+<div class="cuerpo">
+    <h2>Crea el cómic</h2>
+    <form (ngSubmit)="onSubmit()" #comicForm="ngForm">
+        <!-- Título -->
+        <div>
+            <label for="title">Título:</label><br />
+            <input type="text" id="title" name="title" [(ngModel)]="comic.title" required
+                placeholder="Sonic the Hedgehog #1" />
+        </div>
+
+        <!-- Descripción -->
+        <div style="margin-top: 10px;">
+            <label for="description">Descripción:</label><br />
+            <textarea id="description" name="description" [(ngModel)]="comic.description" required></textarea>
+        </div>
+
+        <!-- Precio -->
+        <div style="margin-top: 10px;">
+            <label for="price">Precio:</label><br />
+            <input type="number" id="price" name="price" [(ngModel)]="comic.price" required placeholder="15" />
+        </div>
+
+        <!-- Stock -->
+        <div style="margin-top: 10px;">
+            <label for="stock">Stock:</label><br />
+            <input type="number" id="stock" name="stock" [(ngModel)]="comic.stock" required placeholder="0" />
+        </div>
+
+        <!-- Editorial -->
+        <div style="margin-top: 10px;">
+            <label for="editorial">Editorial:</label><br />
+            <select id="editorial" name="editorial" [(ngModel)]="comic.editorial" required>
+                <option value="">-- Selecciona una editorial --</option>
+                <option value="Marvel">Marvel</option>
+                <option value="DC">DC</option>
+                <option value="Image">Image</option>
+                <option value="IDW">IDW</option>
+                <option value="Shueshia">Shueshia</option>
+            </select>
+        </div>
+
+        <!-- Género -->
+        <div style="margin-top: 10px;">
+            <label for="genero">Género:</label><br />
+            <select id="genero" name="genero" [(ngModel)]="comic.genero" required>
+                <option value="">-- Selecciona un género --</option>
+                <option value="Acción">Acción</option>
+                <option value="Aventura">Aventura</option>
+                <option value="Ciencia ficción">Ciencia ficción</option>
+                <option value="Fantasía">Fantasía</option>
+                <option value="Superhéroes">Superhéroes</option>
+                <option value="Terror">Terror</option>
+            </select>
+        </div>
+
+        <!-- Estado -->
+        <div style="margin-top: 10px;">
+            <label for="status">Estado:</label><br />
+            <select id="status" name="status" [(ngModel)]="comic.status" required>
+                <option value="">-- Selecciona estado --</option>
+                <option value="Disponible">Disponible</option>
+                <option value="No disponible">No disponible</option>
+            </select>
+        </div>
+
+        <!-- Tipo -->
+        <div style="margin-top: 10px;">
+            <label for="type">Tipo:</label><br />
+            <select id="type" name="type" [(ngModel)]="comic.status" required>
+                <option value="">-- Selecciona estado --</option>
+                <option value="Disponible">Comic</option>
+                <option value="No disponible">Manga</option>
+            </select>
+        </div>
+
+        <!-- Imagenes -->
+        <div style="margin-top: 10px;">
+            <label for="images">Portada(s):</label><br />
+            <input type="file" id="images" name="images" (change)="onFileChange($event)" accept="image/*" multiple />
+        </div>
+
+        <button style="margin-top: 15px;" type="submit">Crear</button>
+    </form>
+</div>

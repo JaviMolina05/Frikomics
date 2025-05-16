@@ -17,7 +17,8 @@ import { AuthInterceptor } from './services/auth/auth-interceptor.service';
 import { MiCuentaComponent } from './components/cuenta/mi-cuenta/mi-cuenta.component';
 import { FavoritosComponent } from './components/cuenta/favoritos/favoritos.component';
 import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/hitorial-pedidos.component';
-import { SidebarComponent } from './components/cuenta/sidebar/sidebar.component';  // 👈 importa tu interceptor
+import { SidebarComponent } from './components/cuenta/sidebar/sidebar.component';
+import { ComicsAdminComponent } from './components/Productos/comics-admin/comics-admin.component';  // 👈 importa tu interceptor
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SidebarComponent } from './components/cuenta/sidebar/sidebar.component'
     MiCuentaComponent,
     FavoritosComponent,
     HitorialPedidosComponent,
-    SidebarComponent
+    SidebarComponent,
+    ComicsAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -18,12 +18,12 @@ class ImportMarvelComics extends Command
         $ts = time();
         $hash = md5($ts . $private . $public);
 
-        $this->info('Clave pública: ' . $public);
+        $this->info('Clave pública: ' . $hash);
 
         $response = Http::get('https://gateway.marvel.com/v1/public/comics', [
             'apikey' => $public,
             'ts' => $ts,
-            'hash' => "50b6e01e499d2affd40c0af715404839",
+            'hash' => $hash,
             'limit' => 10,
         ]);
 

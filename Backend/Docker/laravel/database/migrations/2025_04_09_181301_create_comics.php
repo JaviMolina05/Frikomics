@@ -19,7 +19,10 @@ return new class extends Migration {
             $table->integer('stock');
             $table->string('editorial');
             $table->string('genero');
+            $table->enum('tipo', ['Comic', 'Manga'])->default('Comic');
             $table->enum('status', ['available', 'sold', 'in_auction'])->default('available');
+            $table->string('image_path')->nullable();
+            
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // propietario
             $table->timestamps();
         });

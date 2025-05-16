@@ -1,6 +1,7 @@
 // comic-list.component.ts
 import { Component, Input } from '@angular/core';
 import { Comic } from '../../../model/comic/comic.model';
+import { AuthService } from '../../../services/auth.service.spec';
 
 @Component({
   selector: 'app-comic-list',
@@ -9,5 +10,6 @@ import { Comic } from '../../../model/comic/comic.model';
   standalone: false
 })
 export class ComicListComponent {
-  @Input() comic!: Comic; // <-- recibir el comic individual
+  @Input() comic!: Comic; 
+  constructor(public authService: AuthService){}
 }
