@@ -1,4 +1,5 @@
-<button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button">
+@if (authService.isAdmin() && authService.isLoggedIn()) {
+  <button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button">
   🛠️ Crear Cómic
 </button>
 
@@ -7,6 +8,8 @@
   <button class="close-btn" (click)="toggleSidebar()">✖</button>
   <app-comics-admin></app-comics-admin> <!-- Tu componente de formulario -->
 </div>
+}
+
 <div class="products">
   @for (comic of comics; track comic.id) {
   <app-comic-list [comic]="comic"></app-comic-list>
