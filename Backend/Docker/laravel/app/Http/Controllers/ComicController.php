@@ -32,11 +32,18 @@ class ComicController extends Controller
         'description' => 'required|string',
         'price' => 'required|numeric',
         'stock' => 'required|integer',
-        'image' => 'nullable|string',
         'editorial' => 'required|string',
         'genero' => 'required|string',
-        'status' => 'nullable|in:available,sold,in_auction',
+        'status' => 'required|string',
+        'tipo' => 'required|string',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
+
+    // Guardar imagen
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('comics', 'public');
+        $validated['image'] = $imagePath;
+    }
 
     $validated['user_id'] = auth()->id();
 

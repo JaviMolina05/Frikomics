@@ -11,6 +11,8 @@ import { AuthService } from '../../../services/auth.service.spec';
   standalone: false
 })
 export class ComicsProductosComponent implements OnInit {
+  isSidebarOpen = false;
+  
   comics: Comic[] = [];
   isLoading = true;
   error: string = '';
@@ -19,11 +21,15 @@ export class ComicsProductosComponent implements OnInit {
     private comicService: ComicService,
     public authService: AuthService
   ) {}
-  
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
   ngOnInit(): void {
     this.comicService.getAllComics().subscribe({
-      next: (data: any) => {
-        this.comics = data;
+      next: (res: any) => {
+        this.comics = res.data;
         this.isLoading = false;
       },
       error: (err: any) => {

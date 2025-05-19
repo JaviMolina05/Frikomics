@@ -12,6 +12,6 @@ export class ComicService {
   constructor(private http: HttpClient) {}
 
   getAllComics(): Observable<Comic[]> {
-    return this.http.get<Comic[]>(`${this.apiUrl}/comics/{id}`);
+    return this.http.get<Comic[]>(`${this.apiUrl}/comics`);
   }
 }

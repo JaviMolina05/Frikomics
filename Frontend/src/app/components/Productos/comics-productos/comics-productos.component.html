@@ -1,10 +1,14 @@
-@if (authService.isAdmin()) {
-<div>
-  <button>Eliminar producto</button>
+<button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button">
+  🛠️ Crear Cómic
+</button>
+
+<!-- Sidebar animado -->
+<div class="admin-sidebar" [class.open]="isSidebarOpen">
+  <button class="close-btn" (click)="toggleSidebar()">✖</button>
+  <app-comics-admin></app-comics-admin> <!-- Tu componente de formulario -->
 </div>
-}
 <div class="products">
-  @for (comic of comics; track trackById) {
+  @for (comic of comics; track comic.id) {
   <app-comic-list [comic]="comic"></app-comic-list>
   }
 </div>

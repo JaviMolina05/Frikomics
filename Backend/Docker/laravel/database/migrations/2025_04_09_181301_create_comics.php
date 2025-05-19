@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('editorial');
             $table->string('genero');
             $table->enum('tipo', ['Comic', 'Manga'])->default('Comic');
-            $table->enum('status', ['available', 'sold', 'in_auction'])->default('available');
+            $table->enum('status', ['Disponible', 'No disponible', 'in_auction'])->default('Disponible');
             $table->string('image_path')->nullable();
             
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // propietario

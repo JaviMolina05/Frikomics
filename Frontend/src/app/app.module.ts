@@ -47,7 +47,7 @@ import { ComicsAdminComponent } from './components/Productos/comics-admin/comics
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true // 👈 permite múltiples interceptores
+      multi: true 
     }
   ],
   bootstrap: [AppComponent]

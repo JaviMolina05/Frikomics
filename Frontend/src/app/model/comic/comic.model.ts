@@ -7,5 +7,6 @@ export interface Comic {
   image: string;
   genero: string;
   status: string;
+  tipo: string;
   user_id: number;
 }
