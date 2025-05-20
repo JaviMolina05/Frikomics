@@ -3,15 +3,17 @@
   🛠️ Crear Cómic
 </button>
 
-<!-- Sidebar animado -->
+
 <div class="admin-sidebar" [class.open]="isSidebarOpen">
   <button class="close-btn" (click)="toggleSidebar()">✖</button>
-  <app-comics-admin></app-comics-admin> <!-- Tu componente de formulario -->
+  <app-comics-admin></app-comics-admin> 
 </div>
 }
 
 <div class="products">
   @for (comic of comics; track comic.id) {
-  <app-comic-list [comic]="comic"></app-comic-list>
+  <app-comic-list 
+  [comic]="comic"
+  (comicDeleted)="handleComicDeleted($event)"></app-comic-list>
   }
 </div>

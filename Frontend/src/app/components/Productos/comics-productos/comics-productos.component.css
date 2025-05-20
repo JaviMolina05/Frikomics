@@ -1,1 +1,45 @@
-/*# sourceMappingURL=comics-productos.component.css.map */
+.products {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.admin-button {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 1000;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  right: -500px;
+  width: 400px;
+  height: 100vh;
+  background-color: #f7f7f7;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s ease;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+.admin-sidebar.open {
+  right: 0;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  float: right;
+  cursor: pointer;
+}/*# sourceMappingURL=comics-productos.component.css.map */

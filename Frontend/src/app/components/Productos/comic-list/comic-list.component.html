@@ -3,13 +3,13 @@
 </div>
 <div class="products">
     <div class="card" style="width: 18rem;">
-        <img src="{{comic.image}}" class="card-img-top" alt="...">
+        <img [src]="'http://localhost:8000/storage/' + comic.image" class="card-img-top" alt="{{comic.title}}">
         <div class="card-body">
           <h5 class="card-title">{{comic.title}}</h5>
-          <p class="card-text">{{comic.description}}</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
+          <p class="card-text">{{comic.price}}€</p>
+          <a href="#" class="btn btn-primary">Añadir al carrito</a>
           @if (authService.isAdmin()) {
-            <a href="#" class="btn btn-dangerus">Eliminar</a>
+            <a href="#" class="btn btn-danger" (click)="deleteComic(comic.id)">Eliminar</a>
           }
         </div>
       </div>
