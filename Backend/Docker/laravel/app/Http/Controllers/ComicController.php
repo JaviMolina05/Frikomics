@@ -13,6 +13,7 @@ class ComicController extends Controller
 
         $comicInfoView = $comics->map(function ($comic) {
             return [
+                'id' => $comic->id,
                 'title' => $comic->title,
                 'description' => $comic->description,
                 'price' => $comic->price,
@@ -24,6 +25,31 @@ class ComicController extends Controller
 
         return response()->json(['comics' => $comicInfoView]);
     }
+
+    public function show($id)
+{
+    $comic = Comic::find($id);
+
+    if (!$comic) {
+        return response()->json(['error' => 'Comic not found'], 404);
+    }
+
+    $comicInfo = [
+        'id' => $comic->id,
+        'title' => $comic->title,
+        'description' => $comic->description,
+        'price' => $comic->price,
+        'stock' => $comic->stock,
+        'image' => $comic->image,
+        'editorial' => $comic->editorial,
+        'tipo' => $comic->tipo,
+        'genero' => $comic->genero,
+        'user_id' => $comic->user_id,
+    ];
+
+    return response()->json(['comic' => $comicInfo]);
+}
+
 
     public function store(Request $request)
 {

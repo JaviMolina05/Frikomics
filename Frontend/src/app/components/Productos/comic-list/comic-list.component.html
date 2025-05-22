@@ -1,16 +1,16 @@
-<div class="filter">
-
-</div>
 <div class="products">
-    <div class="card" style="width: 18rem;">
-        <img [src]="'http://localhost:8000/storage/' + comic.image" class="card-img-top" alt="{{comic.title}}">
-        <div class="card-body">
-          <h5 class="card-title">{{comic.title}}</h5>
-          <p class="card-text">{{comic.price}}€</p>
-          <a href="#" class="btn btn-primary">Añadir al carrito</a>
-          @if (authService.isAdmin()) {
-            <a href="#" class="btn btn-danger" (click)="deleteComic(comic.id)">Eliminar</a>
-          }
-        </div>
-      </div>
+  <div class="card" style="width: 18rem;">
+    <img [src]="'http://localhost:8000/storage/' + comic.image" class="card-img-top" alt="{{comic.title}}"  (click)="detailComic(comic.id)">
+    <div class="card-body">
+      <h5 class="card-title">{{comic.title}}</h5>
+      <p class="card-text">{{comic.price}}€</p>
+      <a href="#" class="btn btn-primary">Añadir al carrito</a>
+      <a href="#" class="btn btn-primary">Favoritos</a>
+      @if (authService.isAdmin()) {
+      <button class="btn btn-danger" (click)="deleteComic(comic.id)">
+        Eliminar
+      </button>
+      }
+    </div>
+  </div>
 </div>

@@ -5,6 +5,7 @@ export interface Comic {
   price: number;
   stock: number;
   image: string;
+  editorial:string;
   genero: string;
   status: string;
   tipo: string;

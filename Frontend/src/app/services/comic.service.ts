@@ -18,6 +18,10 @@ export class ComicService {
     return this.http.get<Comic[]>(`${this.apiUrl}/comics`);
   }
 
+  getComicById(id: number): Observable<Comic> {
+  return this.http.get<Comic>(`${this.apiUrl}/comics/${id}`);
+}
+
   deleteComic(id: number): Observable<any> {
   return this.http.delete(`${this.apiUrl}/comics/${id}`);
   }

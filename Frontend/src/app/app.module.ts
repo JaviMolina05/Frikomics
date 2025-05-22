@@ -18,7 +18,8 @@ import { MiCuentaComponent } from './components/cuenta/mi-cuenta/mi-cuenta.compo
 import { FavoritosComponent } from './components/cuenta/favoritos/favoritos.component';
 import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/hitorial-pedidos.component';
 import { SidebarComponent } from './components/cuenta/sidebar/sidebar.component';
-import { ComicsAdminComponent } from './components/Productos/comics-admin/comics-admin.component';  // 👈 importa tu interceptor
+import { ComicsAdminComponent } from './components/Productos/comics-admin/comics-admin.component';
+import { ComicDetailComponent } from './components/Productos/comic-detail/comic-detail.component';  // 👈 importa tu interceptor
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ComicsAdminComponent } from './components/Productos/comics-admin/comics
     FavoritosComponent,
     HitorialPedidosComponent,
     SidebarComponent,
-    ComicsAdminComponent
+    ComicsAdminComponent,
+    ComicDetailComponent
   ],
   imports: [
     BrowserModule,

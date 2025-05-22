@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/Login/register/register.componen
 import { MiCuentaComponent } from './components/cuenta/mi-cuenta/mi-cuenta.component';
 import { FavoritosComponent } from './components/cuenta/favoritos/favoritos.component';
 import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/hitorial-pedidos.component';
+import { ComicDetailComponent } from './components/Productos/comic-detail/comic-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'perfil', component: MiCuentaComponent },
   { path: 'favoritos', component: FavoritosComponent },
-  { path: 'historial', component: HitorialPedidosComponent }  
+  { path: 'historial', component: HitorialPedidosComponent },
+  { path: 'detalle/:id', component: ComicDetailComponent}   
 ];
 
 @NgModule({
