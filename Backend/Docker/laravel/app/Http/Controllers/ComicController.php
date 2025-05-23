@@ -47,7 +47,7 @@ class ComicController extends Controller
         'user_id' => $comic->user_id,
     ];
 
-    return response()->json(['comic' => $comicInfo]);
+    return response()->json($comicInfo);
 }
 
 

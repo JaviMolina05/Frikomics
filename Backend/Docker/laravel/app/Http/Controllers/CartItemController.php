@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CartItem;
+use App\Models\Cart;
 
 class CartItemController extends Controller
 {
     public function store(Request $request)
-    {
+{
+    try {
+        \Log::info('Añadiendo al carrito', ['user' => auth()->id(), 'request' => $request->all()]);
+
         $validated = $request->validate([
             'product_id' => 'required|integer|exists:comics,id',
             'quantity'   => 'required|integer|min:1',
@@ -24,7 +28,14 @@ class CartItemController extends Controller
             'message'    => 'Producto añadido al carrito exitosamente.',
             'cart_item'  => $cartItem
         ], 201);
+
+    } catch (\Exception $e) {
+        \Log::error('Error al añadir al carrito', ['error' => $e->getMessage()]);
+        return response()->json(['error' => 'No se pudo añadir el producto.'], 500);
     }
+}
+
+
 
     public function update(Request $request, $id)
     {

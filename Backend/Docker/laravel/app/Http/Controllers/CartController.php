@@ -10,13 +10,14 @@ class CartController extends Controller
 {
     public function show(User $user)
 {
-    $items = $user->cartItems()->with('comic')->get();
-    
+    $cart = $user->cart()->with('items.comic')->first();
+
     return response()->json([
         'user_id' => $user->id,
-        'items' => $items->map(function ($item) {
+        'cart_id' => $cart->id,
+        'items' => $cart->items->map(function ($item) {
             return [
-                'comic_id' => $item->comic->id ?? $item->product_id, 
+                'comic_id' => $item->comic->id,
                 'title' => $item->comic->title,
                 'price' => $item->comic->price,
                 'quantity' => $item->quantity,
@@ -25,6 +26,7 @@ class CartController extends Controller
         }),
     ]);
 }
+
 
 
 public function clear()

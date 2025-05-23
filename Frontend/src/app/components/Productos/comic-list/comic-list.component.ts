@@ -4,6 +4,7 @@ import { Comic } from '../../../model/comic/comic.model';
 import { AuthService } from '../../../services/auth.service.spec';
 import { ComicService } from '../../../services/comic.service';
 import { Router } from '@angular/router';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-comic-list',
@@ -15,7 +16,7 @@ export class ComicListComponent {
   @Input() comic!: Comic;
   @Output() comicDeleted = new EventEmitter<number>();
   @Output() comicDetail = new EventEmitter<number>();
-  constructor(public authService: AuthService, private comicService: ComicService, private router: Router) { }
+  constructor(public authService: AuthService, private comicService: ComicService, private router: Router, private cartService: CartService) { }
   public deleteComic(id: number) {
     if (confirm('¿Estás seguro de que quieres eliminar este cómic?')) {
       this.comicService.deleteComic(id).subscribe({
@@ -32,5 +33,16 @@ export class ComicListComponent {
   public detailComic(id: number) {
   this.router.navigate(['/detalle', id]);  
 }
+addToCart() {
+    this.cartService.addToCart(this.comic.id, 1).subscribe({
+      next: (res) => {
+        console.log(this.comic.id);
+        alert('Producto añadido al carrito');
+      },
+      error: (err) => {
+        alert('Error al añadir al carrito');
+      }
+    });
+  }
 
 }

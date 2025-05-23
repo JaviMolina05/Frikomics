@@ -1,5 +1,5 @@
 @if (authService.isAdmin() && authService.isLoggedIn()) {
-  <button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button">
+  <button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button"> <!--TODO: borrar ngif-->
   🛠️ Crear Cómic
 </button>
 

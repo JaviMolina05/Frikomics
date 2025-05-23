@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"comic-list.component.css"}
+{"version":3,"sources":["comic-list.component.scss","comic-list.component.css"],"names":[],"mappings":"AAAA;EACI,eAAA;ACCJ","file":"comic-list.component.css"}

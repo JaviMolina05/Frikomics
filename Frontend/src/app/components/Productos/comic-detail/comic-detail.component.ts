@@ -14,26 +14,26 @@ export class ComicDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private comicService: ComicService
-  ) {}
+  ) { }
+
+  
 
   ngOnInit() {
-  const id = Number(this.route.snapshot.paramMap.get('id'));
-  console.log('ID recibido en detalle:', id);
-  if (id) {
-    this.comicService.getComicById(id).subscribe({
-      next: (comic) => {
-        console.log('Cómic recibido:', comic);
-        this.comic = comic;
-        console.log(this.comic);
-      },
-      error: (err) => {
-        console.error('Error al cargar el cómic', err);
-        alert('Error al cargar el cómic');
-      }
-    });
-  } else {
-    alert('ID inválido');
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('ID recibido en detalle:', id);
+    if (id) {
+      this.comicService.getComicById(id).subscribe({
+        next: (comic) => {
+          this.comic = comic;
+        },
+        error: (err) => {
+          console.error('Error al cargar el cómic', err);
+          alert('Error al cargar el cómic');
+        }
+      });
+    } else {
+      alert('ID inválido');
+    }
   }
-}
 
 }
