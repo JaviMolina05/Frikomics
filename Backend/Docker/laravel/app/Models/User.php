@@ -53,4 +53,9 @@ public function cartItems(): HasMany
 {
     return $this->hasMany(CartItem::class);
 }
+public function cart()
+{
+    return $this->hasOne(\App\Models\Cart::class);
+}
+
 }

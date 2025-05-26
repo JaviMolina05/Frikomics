@@ -18,15 +18,35 @@ class CartItemController extends Controller
             'quantity'   => 'required|integer|min:1',
         ]);
 
-        $cartItem = CartItem::create([
-            'user_id'    => auth()->id(),
-            'product_id' => $validated['product_id'],
-            'quantity'   => $validated['quantity'],
+        $user = auth()->user();
+
+        // Buscar o crear el carrito del usuario
+        $cart = Cart::firstOrCreate([
+            'user_id' => $user->id,
         ]);
 
+        // Buscar si ya existe el item en el carrito
+        $existingItem = $cart->items()
+            ->where('product_id', $validated['product_id'])
+            ->first();
+
+        if ($existingItem) {
+            // Si ya existe, aumentar la cantidad
+            $existingItem->quantity += $validated['quantity'];
+            $existingItem->save();
+
+            $cartItem = $existingItem;
+        } else {
+            // Si no existe, crearlo
+            $cartItem = $cart->items()->create([
+                'product_id' => $validated['product_id'],
+                'quantity'   => $validated['quantity'],
+            ]);
+        }
+
         return response()->json([
-            'message'    => 'Producto añadido al carrito exitosamente.',
-            'cart_item'  => $cartItem
+            'message'   => 'Producto añadido al carrito exitosamente.',
+            'cart_item' => $cartItem
         ], 201);
 
     } catch (\Exception $e) {
@@ -34,6 +54,7 @@ class CartItemController extends Controller
         return response()->json(['error' => 'No se pudo añadir el producto.'], 500);
     }
 }
+
 
 
 

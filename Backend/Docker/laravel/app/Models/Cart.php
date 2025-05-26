@@ -19,4 +19,12 @@ class Cart extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // app/Models/User.php
+
+    public function cart()
+    {
+        return $this->hasOne(\App\Models\Cart::class);
+    }
+
 }

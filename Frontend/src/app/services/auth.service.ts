@@ -8,34 +8,39 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(credentials: any): Observable<any> {
-  return this.http.post('http://localhost:8000/api/login', credentials).pipe(
-    tap((response: any) => {
-      console.log('Respuesta completa del backend:', response);
+    return this.http.post('http://localhost:8000/api/login', credentials).pipe(
+      tap((response: any) => {
+        console.log('Respuesta completa del backend:', response);
 
-      const token = response.data?.accessToken;
-      const user = response.data?.user;
+        const token = response.data?.accessToken;
+        const user = response.data?.user;
 
-      if (token) {
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        console.log('Token guardado en localStorage:', token);
-      } else {
-        console.warn('No se encontró el token en la respuesta');
-      }
-    })
-  );
-}
+        if (token) {
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', JSON.stringify(user));
+          console.log('Token guardado en localStorage:', token);
+        } else {
+          console.warn('No se encontró el token en la respuesta');
+        }
+      })
+    );
+  }
 
   register(data: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/register`, data);
+    return this.http.post(`${this.apiUrl}/register`, data);
   }
 
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
-    return !!token; 
+    return !!token;
+  }
+
+  getUserId(): number | null {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    return user?.id || null;
   }
 
   getToken(): string | null {
@@ -47,8 +52,8 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  return user.role === 'admin'; 
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    return user.role === 'admin';
   }
 
 

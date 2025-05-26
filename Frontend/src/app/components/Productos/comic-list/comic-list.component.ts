@@ -40,7 +40,7 @@ addToCart() {
         alert('Producto añadido al carrito');
       },
       error: (err) => {
-        alert('Error al añadir al carrito');
+        alert('Error al añadir al carrito, intentelo mas tarde'); //TODO: Modificar las alertas
       }
     });
   }

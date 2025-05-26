@@ -29,6 +29,10 @@ export class AuthService {
   );
 }
 
+getUserId(): number | null {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    return user?.id || null;
+  }
 
   register(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/user`, data);
