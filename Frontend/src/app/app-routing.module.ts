@@ -8,6 +8,7 @@ import { MiCuentaComponent } from './components/cuenta/mi-cuenta/mi-cuenta.compo
 import { FavoritosComponent } from './components/cuenta/favoritos/favoritos.component';
 import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/hitorial-pedidos.component';
 import { ComicDetailComponent } from './components/Productos/comic-detail/comic-detail.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'perfil', component: MiCuentaComponent },
   { path: 'favoritos', component: FavoritosComponent },
   { path: 'historial', component: HitorialPedidosComponent },
-  { path: 'detalle/:id', component: ComicDetailComponent}   
+  { path: 'detalle/:id', component: ComicDetailComponent},   
+  { path: 'cart', component: CartComponent}   
 ];
 
 @NgModule({

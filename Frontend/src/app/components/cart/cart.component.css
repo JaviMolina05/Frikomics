@@ -1,0 +1,88 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background-color: #f9f9f9;
+}
+
+h1 {
+  border-bottom: 4px solid red;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f3f3f3;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product img {
+  width: 80px;
+  height: auto;
+}
+
+.product-name {
+  font-weight: bold;
+}
+
+.actions {
+  font-size: 0.9rem;
+}
+
+.actions a {
+  margin-left: 0.5rem;
+  color: red;
+  text-decoration: none;
+}
+
+.summary {
+  margin-top: 2rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+.summary h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}/*# sourceMappingURL=cart.component.css.map */

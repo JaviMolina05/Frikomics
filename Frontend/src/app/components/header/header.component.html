@@ -31,19 +31,19 @@
       <img src="assets/107831.png" height="18px" width="18px" style="cursor: pointer;" />
 
       <div class="cart-preview" *ngIf="showCart">
-        @if (cartItems.length > 0) {
-        @for (item of cartItems; track item.comic_id) {
-        <div class="cart-item">
-          <p>
-            {{ item.title }} x{{ item.quantity }} — ${{ item.total_price }}
-          </p>
-        </div>
-        }
-        } @else {
-        <p>Tu carrito está vacío</p>
-        }
+  @if (cartItems.length > 0) {
+    @for (item of cartItems; track item.comic_id) {
+      <div class="cart-item">
+        <p>
+          {{ item.title }} x{{ item.quantity }} — ${{ item.total_price | number:'1.2-2' }}
+        </p>
+      </div>
+    }
+  } @else {
+    <p>Tu carrito está vacío</p>
+  }
 
-        <a routerLink="/carrito" class="btn btn-dark">Ver carrito</a>
+        <a routerLink="/cart" class="btn btn-dark">Ver carrito</a>
       </div>
     </div>
 
