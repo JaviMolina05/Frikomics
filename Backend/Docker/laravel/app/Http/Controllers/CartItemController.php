@@ -75,13 +75,29 @@ class CartItemController extends Controller
         ], 200);
     }
 
-    public function destroy($id)
-    {
-        $cartItem = CartItem::findOrFail($id);
-        $cartItem->delete();
+    public function destroy($productId)
+{
+    $user = auth()->user();
 
-        return response()->json([
-            'message' => 'Producto eliminado del carrito exitosamente.'
-        ], 200);
+    // Obtener el carrito del usuario autenticado
+    $cart = $user->cart;
+
+    if (!$cart) {
+        return response()->json(['error' => 'No se encontró el carrito.'], 404);
     }
+
+    // Buscar el ítem en el carrito por product_id
+    $cartItem = $cart->items()->where('product_id', $productId)->first();
+
+    if (!$cartItem) {
+        return response()->json(['error' => 'No se encontró el producto en el carrito.'], 404);
+    }
+
+    $cartItem->delete();
+
+    return response()->json([
+        'message' => 'Producto eliminado del carrito exitosamente.'
+    ], 200);
+}
+
 }

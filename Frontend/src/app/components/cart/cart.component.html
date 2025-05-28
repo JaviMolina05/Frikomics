@@ -11,21 +11,25 @@
     </thead>
     <tbody>
 
-        @for (item of cartItems; track item.comic_id) {
+        @for (item of cartItems; track item.comic_id; let i = $index) {
         <tr>
             <td class="product">
                 <img src="https://via.placeholder.com/80x80.png?text=Caja" alt="Caja">
                 <div class="product-name">{{item.title}}</div>
             </td>
             <td>
-                <input type="number" value="{{item.quantity}}" style="width: 60px;">
+                <input
+        type="number"
+        [(ngModel)]="cartItems[i].quantity"
+        style="width: 60px;"
+      >
                 <span class="actions">
-                    <a href="#">Actualizar</a> |
-                    <a href="#">Eliminar</a>
+                    <button class="btn btn-success" (click)="actualizar(i)">Actualizar</button> |
+                    <button class="btn btn-danger" (click)="eliminar(i)">Eliminar</button>
                 </span>
             </td>
-            <td>14,20 €</td>
-            <td><strong>14,20 €</strong></td>
+            <td>{{item.price}} €</td>
+            <td><strong>{{item.total_price}} €</strong></td>
         </tr>
         }
 

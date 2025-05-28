@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CartItem } from '../model/cart-item/cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CartService {
   private apiUrl = 'http://localhost:8000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // ✅ Añadir producto al carrito
   addToCart(productId: number, quantity: number): Observable<any> {
@@ -23,6 +24,14 @@ export class CartService {
     return this.http.get(`${this.apiUrl}/cart/${userId}`);
   }
 
+  // ✅ Actualizar carrito del usuario autenticado
+  updateCartItem(userId: number, item: CartItem): Observable<any> {
+    return this.http.put(`${this.apiUrl}/cart-items/${userId}`, {
+      product_id: item.comic_id, // o item.comic_id, según el campo
+      quantity: item.quantity
+    });
+  }
+  
   // ✅ Eliminar un producto del carrito
   removeItem(itemId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/cart-items/${itemId}`);

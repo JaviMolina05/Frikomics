@@ -11,7 +11,7 @@ import { CartResponse } from '../../model/cart-response/cart-response';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
- cartItems: CartItem[] = [];
+  cartItems: CartItem[] = [];
   showCart: boolean = false;
   
   constructor(
