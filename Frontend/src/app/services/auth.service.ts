@@ -1,36 +1,35 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, Subject, tap } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8000/api';
+  private userChanged = new Subject<void>();
+  userChanged$ = this.userChanged.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
-    return this.http.post('http://localhost:8000/api/login', credentials).pipe(
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
-        console.log('Respuesta completa del backend:', response);
-
         const token = response.data?.accessToken;
         const user = response.data?.user;
-
-        if (token) {
+        if (token && user) {
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
-          console.log('Token guardado en localStorage:', token);
-        } else {
-          console.warn('No se encontró el token en la respuesta');
+          this.userChanged.next(); // 🔁 Emitir cambio
         }
       })
     );
   }
 
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data);
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.userChanged.next(); // 🔁 Emitir cambio
   }
 
   isLoggedIn(): boolean {
@@ -47,26 +46,8 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-  }
-
   isAdmin(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return user.role === 'admin';
   }
-
-
-  /*constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {
-    if (!this.authService.isLoggedIn()) {
-      // Redirige a login si no hay sesión
-      window.location.href = '/login';
-    }
-
-    // Si hay token, puedes hacer peticiones aquí
-    const token = this.authService.getToken();
-    console.log('Token activo:', token);
-  }*/
 }

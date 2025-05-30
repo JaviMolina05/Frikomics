@@ -46,7 +46,7 @@ Route::group([], function () {
 
         // 🧺 Cart Items (necesario para tests)
         Route::post('/cart-items', [CartItemController::class, 'store']);
-        Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
+        Route::put('/cart-items/{productId}', [CartItemController::class, 'update']);
         Route::delete('/cart-items/{productId}', [CartItemController::class, 'destroy']);
 
 

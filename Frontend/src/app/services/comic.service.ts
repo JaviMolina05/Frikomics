@@ -25,4 +25,9 @@ export class ComicService {
   deleteComic(id: number): Observable<any> {
   return this.http.delete(`${this.apiUrl}/comics/${id}`);
   }
+
+  addToFavorites(comicId: number): Observable<any> {
+  return this.http.post(`http://localhost:8000/api/favorites`, { comic_id: comicId });
+}
+
 }

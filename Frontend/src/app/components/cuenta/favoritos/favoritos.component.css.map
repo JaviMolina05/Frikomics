@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"favoritos.component.css"}
+{"version":3,"sources":["favoritos.component.scss","favoritos.component.css"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,mBAAA;EACA,SAAA;ACCJ;;ADEA;EACI,aAAA;EACA,6BAAA;EACA,iBAAA;ACCJ","file":"favoritos.component.css"}

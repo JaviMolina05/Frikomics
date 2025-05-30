@@ -1,1 +1,11 @@
-/*# sourceMappingURL=favoritos.component.css.map */
+.cuerpo {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.card button {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}/*# sourceMappingURL=favoritos.component.css.map */

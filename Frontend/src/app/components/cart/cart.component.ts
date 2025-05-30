@@ -14,10 +14,14 @@ export class CartComponent {
   cartItems: CartItem[] = [];
   showCart: boolean = false;
   total: number = 0;
+  shippingCost: number = 0;
+  envioSeleccionado: string = '';
+  subtotal: number = 0;
+
   constructor(
     public authService: AuthService,
     private cartService: CartService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
@@ -28,24 +32,30 @@ export class CartComponent {
     if (userId) {
       this.cartService.getCart(userId).subscribe({
         next: (response: CartResponse) => {
-          console.log('Respuesta carrito:', response);
-          // Asignar items del response o array vacío si no hay
           this.cartItems = response?.items || [];
-          console.log('Carrito:', this.cartItems);
+          this.calcularTotal();
         },
         error: (error) => {
           console.error('Error al cargar el carrito', error);
-          this.cartItems = []; // Asegurar que cartItems sea un array vacío en caso de error
+          this.cartItems = [];
         }
       });
     } else {
-      this.cartItems = []; // Si no hay userId, vaciar el carrito
+      this.cartItems = [];
     }
   }
 
-  // Método para alternar la visualización del carrito
-  toggleCart(): void {
-    this.showCart = !this.showCart;
+  calcularTotal(): void {
+  this.subtotal = this.cartItems.reduce((acc, item) => acc + item.total_price, 0);
+  this.total = this.subtotal + this.shippingCost;
+}
+
+  onFormaEnvioChange(event: Event): void {
+    const valor = (event.target as HTMLSelectElement).value;
+    this.envioSeleccionado = valor;
+
+    this.shippingCost = valor === 'Envio' ? 3 : 0;
+    this.calcularTotal();
   }
 
   actualizar(index: number): void {
@@ -56,7 +66,7 @@ export class CartComponent {
 
     this.cartService.updateCartItem(userId, item).subscribe({
       next: (response) => {
-        console.log('Item actualizado:', response);
+        this.calcularTotal();
       },
       error: (err) => {
         console.error('Error al actualizar el item:', err);
@@ -68,13 +78,13 @@ export class CartComponent {
     const item = this.cartItems[index];
 
     this.cartService.removeItem(item.comic_id).subscribe({
-    next: (response) => {
-      console.log('Item removido:', response);
-    },
-    error: (err) => {
-      console.error('Error al remover el item:', err);
-    }
-  });
+      next: () => {
+        this.cartItems.splice(index, 1);
+        this.calcularTotal();
+      },
+      error: (err) => {
+        console.error('Error al remover el item:', err);
+      }
+    });
   }
-
 }

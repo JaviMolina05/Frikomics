@@ -5,7 +5,7 @@
       <h5 class="card-title">{{comic.title}}</h5>
       <p class="card-text">{{comic.price}}€</p>
       <a (click)="addToCart()" class="btn btn-primary">Añadir al carrito</a>
-      <a href="#" class="btn btn-primary">Favoritos</a>
+      <a (click)="addToFavorites()" class="btn btn-warning">Favoritos</a>
       @if (authService.isAdmin()) {
       <button class="btn btn-danger" (click)="deleteComic(comic.id)">
         Eliminar

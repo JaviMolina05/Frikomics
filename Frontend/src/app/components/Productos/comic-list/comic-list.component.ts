@@ -6,6 +6,7 @@ import { ComicService } from '../../../services/comic.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
 
+
 @Component({
   selector: 'app-comic-list',
   templateUrl: './comic-list.component.html',
@@ -44,5 +45,14 @@ addToCart() {
       }
     });
   }
-
+addToFavorites() {
+  this.comicService.addToFavorites(this.comic.id).subscribe({
+    next: () => {
+      alert('Cómic añadido a favoritos');
+    },
+    error: () => {
+      alert('Error al añadir a favoritos');
+    }
+  });
+}
 }

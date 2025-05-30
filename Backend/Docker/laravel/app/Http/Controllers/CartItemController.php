@@ -58,46 +58,36 @@ class CartItemController extends Controller
 
 
 
-    public function update(Request $request, $id)
-    {
-        $cartItem = CartItem::findOrFail($id);
-
-        $validated = $request->validate([
-            'product_id' => 'sometimes|required|integer|exists:comics,id',
-            'quantity'   => 'sometimes|required|integer|min:1',
-        ]);
-
-        $cartItem->update($validated);
-
-        return response()->json([
-            'message'    => 'Producto del carrito actualizado exitosamente.',
-            'cart_item'  => $cartItem
-        ], 200);
-    }
-
-    public function destroy($productId)
+    public function update(Request $request, $productId)
 {
     $user = auth()->user();
-
-    // Obtener el carrito del usuario autenticado
     $cart = $user->cart;
 
     if (!$cart) {
         return response()->json(['error' => 'No se encontró el carrito.'], 404);
     }
 
-    // Buscar el ítem en el carrito por product_id
+    // Buscar el ítem por product_id dentro del carrito del usuario
     $cartItem = $cart->items()->where('product_id', $productId)->first();
 
     if (!$cartItem) {
         return response()->json(['error' => 'No se encontró el producto en el carrito.'], 404);
     }
 
-    $cartItem->delete();
+    // Validar entrada
+    $request->validate([
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    // Actualizar cantidad
+    $cartItem->quantity = $request->input('quantity');
+    $cartItem->save();
 
     return response()->json([
-        'message' => 'Producto eliminado del carrito exitosamente.'
-    ], 200);
+        'message' => 'Cantidad actualizada exitosamente.',
+        'item' => $cartItem
+    ]);
 }
+
 
 }

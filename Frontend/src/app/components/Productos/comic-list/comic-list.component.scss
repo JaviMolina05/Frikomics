@@ -1,3 +1,11 @@
 img{
     cursor: pointer;
 }
+.card button {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}
+.products{
+    margin-top: 10px;
+}

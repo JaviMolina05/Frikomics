@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service.spec';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../model/cart-item/cart-item';
-import { CartResponse } from '../../model/cart-response/cart-response';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,42 +10,50 @@ import { CartResponse } from '../../model/cart-response/cart-response';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];
-  showCart: boolean = false;
-  
+  showCart = false;
+
+  private subs: Subscription[] = [];
+
   constructor(
-    public authService: AuthService, 
+    public authService: AuthService,
     private cartService: CartService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadCart();
+
+    // 🔁 Escucha cuando se añade/actualiza/vacía el carrito
+    this.subs.push(this.cartService.cartChanged$.subscribe(() => {
+      this.loadCart();
+    }));
+
+    // 🔁 Escucha login/logout
+    this.subs.push(this.authService.userChanged$.subscribe(() => {
+      this.loadCart();
+    }));
   }
 
   loadCart(): void {
     const userId = this.authService.getUserId();
     if (userId) {
       this.cartService.getCart(userId).subscribe({
-        next: (response: CartResponse) => {
-          console.log('Respuesta carrito:', response);
-          // Asignar items del response o array vacío si no hay
-          this.cartItems = response?.items || [];
-          console.log('Carrito:', this.cartItems);
-        },
-        error: (error) => {
-          console.error('Error al cargar el carrito', error);
-          this.cartItems = []; // Asegurar que cartItems sea un array vacío en caso de error
-        }
+        next: (res) => this.cartItems = res.items || [],
+        error: () => this.cartItems = []
       });
     } else {
-      this.cartItems = []; // Si no hay userId, vaciar el carrito
+      this.cartItems = [];
     }
   }
 
-  // Método para alternar la visualización del carrito
   toggleCart(): void {
     this.showCart = !this.showCart;
   }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(sub => sub.unsubscribe());
+  }
 }
+
 

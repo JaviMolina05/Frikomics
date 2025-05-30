@@ -20,7 +20,9 @@ import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/h
 import { SidebarComponent } from './components/cuenta/sidebar/sidebar.component';
 import { ComicsAdminComponent } from './components/Productos/comics-admin/comics-admin.component';
 import { ComicDetailComponent } from './components/Productos/comic-detail/comic-detail.component';
-import { CartComponent } from './components/cart/cart.component';  // 👈 importa tu interceptor
+import { CartComponent } from './components/cart/cart.component';
+import { SubastasListComponent } from './components/Subastas/subastas-list/subastas-list.component';
+import { SubastasFormComponent } from './components/Subastas/subastas-form/subastas-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CartComponent } from './components/cart/cart.component';  // 👈 impor
     SidebarComponent,
     ComicsAdminComponent,
     ComicDetailComponent,
-    CartComponent
+    CartComponent,
+    SubastasListComponent,
+    SubastasFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { FavoritosComponent } from './components/cuenta/favoritos/favoritos.comp
 import { HitorialPedidosComponent } from './components/cuenta/hitorial-pedidos/hitorial-pedidos.component';
 import { ComicDetailComponent } from './components/Productos/comic-detail/comic-detail.component';
 import { CartComponent } from './components/cart/cart.component';
+import { SubastasListComponent } from './components/Subastas/subastas-list/subastas-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'favoritos', component: FavoritosComponent },
   { path: 'historial', component: HitorialPedidosComponent },
   { path: 'detalle/:id', component: ComicDetailComponent},   
-  { path: 'cart', component: CartComponent}   
+  { path: 'cart', component: CartComponent},
+  { path: 'subastas', component: SubastasListComponent}    
 ];
 
 @NgModule({
