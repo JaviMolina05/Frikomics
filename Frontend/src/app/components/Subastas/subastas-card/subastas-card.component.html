@@ -1,0 +1,31 @@
+<div class="products">
+  <div class="card auction-card" style="width: 18rem;">
+    <img [src]="'http://localhost:8000/storage/' + comic.image" class="card-img-top" alt="{{comic.title}}" (click)="detailComic(comic.id)">
+    <div class="card-body">
+      <h5 class="card-title">{{comic.title}}</h5>
+      
+      <!-- Sección de puja -->
+      <div class="bid-section mb-3">
+        <p class="current-bid">Puja actual: {{comic.price}}€</p>
+        <div class="input-group mb-2">
+          <input type="number" class="form-control"  placeholder="Tu puja" min="{{(comic.price) + 1}}">
+          <button class="btn btn-outline-primary">Pujar</button>
+        </div>
+        <small class="text-muted">Puja mínima: {{(comic.price) + 1}}€</small>
+      </div>
+
+      <!-- Botones adicionales -->
+      <div class="d-flex justify-content-between">
+        <a (click)="addToCart()" class="btn btn-sm btn-primary">Comprar</a>
+        <a (click)="addToFavorites()" class="btn btn-sm btn-warning">
+          <i class="fas fa-heart"></i>
+        </a>
+        @if (authService.isAdmin()) {
+        <button class="btn btn-sm btn-danger" (click)="deleteComic(comic.id)">
+          <i class="fas fa-trash"></i>
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

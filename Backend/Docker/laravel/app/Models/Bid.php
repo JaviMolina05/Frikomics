@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Bid extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'auction_id', 'amount'];
+
+    protected $fillable = ['user_id', 'auction_id', 'amount', 'is_winning_bid',];
 
     public function user()
     {

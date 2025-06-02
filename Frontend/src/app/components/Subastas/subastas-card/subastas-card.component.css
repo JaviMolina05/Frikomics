@@ -1,0 +1,19 @@
+.auction-card {
+  transition: transform 0.3s;
+}
+
+.auction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bid-section {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.current-bid {
+  font-weight: bold;
+  color: #d23;
+}/*# sourceMappingURL=subastas-card.component.css.map */

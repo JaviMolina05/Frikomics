@@ -23,6 +23,10 @@ import { ComicDetailComponent } from './components/Productos/comic-detail/comic-
 import { CartComponent } from './components/cart/cart.component';
 import { SubastasListComponent } from './components/Subastas/subastas-list/subastas-list.component';
 import { SubastasFormComponent } from './components/Subastas/subastas-form/subastas-form.component';
+import { SubastasDetailComponent } from './components/Subastas/subastas-detail/subastas-detail.component';
+import { PujasComponent } from './components/Subastas/pujas/pujas.component';
+import { MisSubastasComponent } from './components/Subastas/mis-subastas/mis-subastas.component';
+import { SubastasCardComponent } from './components/Subastas/subastas-card/subastas-card.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { SubastasFormComponent } from './components/Subastas/subastas-form/subas
     CartComponent,
     SubastasListComponent,
     SubastasFormComponent,
+    SubastasDetailComponent,
+    PujasComponent,
+    MisSubastasComponent,
+    SubastasCardComponent,
   ],
   imports: [
     BrowserModule,

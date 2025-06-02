@@ -1,1 +1,7 @@
-<p>subastas-list works!</p>
+<div class="products">
+  @for (comic of comics; track comic.id) {
+  <app-subastas-card
+  [comic]="comic"
+  (comicDeleted)="handleComicDeleted($event)"></app-subastas-card>
+  }
+</div>
