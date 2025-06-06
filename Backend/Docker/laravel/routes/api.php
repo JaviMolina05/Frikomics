@@ -8,6 +8,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\AuctionController;
 
 Route::group([], function () {
 
@@ -25,6 +27,10 @@ Route::group([], function () {
     // 👤 Usuario (opcional)
     Route::get('/user', [UserController::class, 'show']);
     Route::post('/user', [UserController::class, 'store']);
+
+    // 📦 Subastas
+    Route::get('/auctions', [AuctionController::class, 'index']);       
+    Route::get('/auctions/{id}', [AuctionController::class, 'show']);
 
     // 🔐 Rutas protegidas por Sanctum
     Route::middleware(['auth:sanctum'])->group(function () {
@@ -54,5 +60,14 @@ Route::group([], function () {
         Route::get('/favorites', [FavoriteController::class, 'index']);
         Route::post('/favorites', [FavoriteController::class, 'store']);
         Route::delete('/favorites/{comic}', [FavoriteController::class, 'destroy']);
+
+        // 🧾 Pujas
+        Route::post('/bids', [BidController::class, 'store']);
+        Route::get('/bids/{auctionId}', [BidController::class, 'index']);
+
+        // 📦 Subastas
+        Route::post('/auctions', [AuctionController::class, 'store']);
+        Route::put('/auctions/{id}', [AuctionController::class, 'update']);
+        Route::delete('/auctions/{id}', [AuctionController::class, 'destroy']);
     });
 });

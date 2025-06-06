@@ -1,7 +1,10 @@
 <div class="products">
   @for (comic of comics; track comic.id) {
-  <app-subastas-card
-  [comic]="comic"
-  (comicDeleted)="handleComicDeleted($event)"></app-subastas-card>
+  <app-subastas-card [auction]="auction"></app-subastas-card>
+  }
+  @if (authService.isAdmin()) {
+      <button class="btn btn-primary">
+        Crear
+      </button>
   }
 </div>

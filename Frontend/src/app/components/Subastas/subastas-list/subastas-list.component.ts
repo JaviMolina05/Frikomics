@@ -1,8 +1,9 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ComicService } from '../../../services/comic.service';
 import { Comic } from '../../../model/comic/comic.model';
 import { AuthService } from '../../../services/auth.service.spec';
+import { Auction } from '../../../model/auction/Auction.model';
 
 @Component({
   selector: 'app-subastas-list',
@@ -11,6 +12,7 @@ import { AuthService } from '../../../services/auth.service.spec';
   styleUrl: './subastas-list.component.scss'
 })
 export class SubastasListComponent {
+@Input() auction!: Auction;
 
   isSidebarOpen = false;
   

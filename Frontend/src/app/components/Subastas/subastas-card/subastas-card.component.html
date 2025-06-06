@@ -1,31 +1,17 @@
 <div class="products">
-  <div class="card auction-card" style="width: 18rem;">
-    <img [src]="'http://localhost:8000/storage/' + comic.image" class="card-img-top" alt="{{comic.title}}" (click)="detailComic(comic.id)">
-    <div class="card-body">
-      <h5 class="card-title">{{comic.title}}</h5>
-      
-      <!-- Sección de puja -->
-      <div class="bid-section mb-3">
-        <p class="current-bid">Puja actual: {{comic.price}}€</p>
-        <div class="input-group mb-2">
-          <input type="number" class="form-control"  placeholder="Tu puja" min="{{(comic.price) + 1}}">
-          <button class="btn btn-outline-primary">Pujar</button>
-        </div>
-        <small class="text-muted">Puja mínima: {{(comic.price) + 1}}€</small>
-      </div>
+  <div class="card auction-card">
+  <img [src]="'http://localhost:8000/storage/' + auction.image" class="card-img-top" alt="{{auction.comic.title}}">
+  <div class="card-body">
+    <h5 class="card-title">{{ auction.comic.title }}</h5>
+    <p class="current-bid">Puja actual: {{ auction.current_price }}€</p>
 
-      <!-- Botones adicionales -->
-      <div class="d-flex justify-content-between">
-        <a (click)="addToCart()" class="btn btn-sm btn-primary">Comprar</a>
-        <a (click)="addToFavorites()" class="btn btn-sm btn-warning">
-          <i class="fas fa-heart"></i>
-        </a>
-        @if (authService.isAdmin()) {
-        <button class="btn btn-sm btn-danger" (click)="deleteComic(comic.id)">
-          <i class="fas fa-trash"></i>
-        </button>
-        }
-      </div>
+    <div class="input-group">
+      <input type="number" [(ngModel)]="bidAmount" [min]="auction.current_price + 1" class="form-control" placeholder="Tu puja" />
+      <button class="btn btn-outline-primary" (click)="placeBid()">Pujar</button>
     </div>
+
+    <small class="text-muted">Puja mínima: {{ auction.current_price + 1 }}€</small>
   </div>
+</div>
+
 </div>
