@@ -1,9 +1,8 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ComicService } from '../../../services/comic.service';
-import { Comic } from '../../../model/comic/comic.model';
-import { AuthService } from '../../../services/auth.service.spec';
-import { Auction } from '../../../model/auction/Auction.model';
+import { AuthService } from '../../../services/auth.service';
+import { Auction } from '../../../model/auction/auction.model';
+import { AuctionService } from '../../../services/auction.service';
 
 @Component({
   selector: 'app-subastas-list',
@@ -12,46 +11,28 @@ import { Auction } from '../../../model/auction/Auction.model';
   styleUrl: './subastas-list.component.scss'
 })
 export class SubastasListComponent {
-@Input() auction!: Auction;
-
+  auctions: Auction[] = [];
   isSidebarOpen = false;
-  
-    comics: Comic[] = [];
-    isLoading = true;
-    error: string = '';
-  
-    constructor(
-      private comicService: ComicService,
-      public authService: AuthService
-    ) { }
-  
-    toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
-    }
-  
-    loadComics() {
-      this.comicService.getAllComics().subscribe({
-        next: (res: any) => {
-          this.comics = res.comics ?? res.data ?? [];
-          this.isLoading = false;
-        },
-        error: () => {
-          this.error = 'Error al cargar los cómics.';
-          this.isLoading = false;
-        }
-      });
-    }
-  
-    ngOnInit(): void {
-      this.loadComics();
-    }
-  
-    trackById(index: number, comic: Comic) {
-      return comic.id;
-    }
-    
-    handleComicDeleted(deletedId: number) {
-      this.comics = this.comics.filter(comic => comic.id !== deletedId);
-    }
-  
+
+  constructor(
+    private auctionService: AuctionService,
+    public authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.auctionService.getAuctions().subscribe({
+      next: (data) => {
+        this.auctions = data;
+      },
+      error: (err) => console.error('Error cargando subastas', err)
+    });
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  trackById(index: number, auction: Auction) {
+    return auction.id;
+  }
 }

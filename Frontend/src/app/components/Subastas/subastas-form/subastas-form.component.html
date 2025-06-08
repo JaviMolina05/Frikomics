@@ -1,1 +1,97 @@
-<p>subastas-form works!</p>
+<div class="cuerpo">
+  <h2>Crear Subasta</h2>
+  <form (ngSubmit)="onSubmit()" #auctionForm="ngForm">
+    <!-- Título -->
+    <div>
+      <label for="title">Título del producto:</label><br />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        [(ngModel)]="auction.title"
+        required
+      />
+    </div>
+
+    <!-- Estado del producto -->
+    <div style="margin-top: 10px;">
+      <label for="condition">Estado:</label><br />
+      <select
+        id="condition"
+        name="condition"
+        [(ngModel)]="auction.condition"
+        required
+      >
+        <option value="">-- Selecciona el estado --</option>
+        <option value="perfecto">Perfecto</option>
+        <option value="buen estado">Buen estado</option>
+        <option value="regular">Regular</option>
+        <option value="muy usado">Muy usado</option>
+      </select>
+    </div>
+
+    <!-- Nota del vendedor -->
+    <div style="margin-top: 10px;">
+      <label for="seller_note">Nota del vendedor:</label><br />
+      <textarea
+        id="seller_note"
+        name="seller_note"
+        [(ngModel)]="auction.seller_note"
+        rows="4"
+        placeholder="Detalles adicionales, observaciones, etc."
+      ></textarea>
+    </div>
+
+    <!-- Precio inicial -->
+    <div style="margin-top: 10px;">
+      <label for="starting_price">Precio inicial:</label><br />
+      <input
+        type="number"
+        id="starting_price"
+        name="starting_price"
+        [(ngModel)]="auction.starting_price"
+        required
+        placeholder="0.00"
+        min="0"
+      />
+    </div>
+
+    <!-- Fecha de inicio -->
+    <div style="margin-top: 10px;">
+      <label for="start_time">Inicio:</label><br />
+      <input
+        type="datetime-local"
+        id="start_time"
+        name="start_time"
+        [(ngModel)]="auction.start_time"
+        required
+      />
+    </div>
+
+    <!-- Fecha de fin -->
+    <div style="margin-top: 10px;">
+      <label for="end_time">Fin:</label><br />
+      <input
+        type="datetime-local"
+        id="end_time"
+        name="end_time"
+        [(ngModel)]="auction.end_time"
+        required
+      />
+    </div>
+
+    <!-- Imagen -->
+    <div style="margin-top: 10px;">
+      <label for="image">Imagen de portada:</label><br />
+      <input
+        type="file"
+        id="image"
+        name="image"
+        (change)="onFileChange($event)"
+        accept="image/*"
+      />
+    </div>
+
+    <button style="margin-top: 15px;" type="submit">Crear Subasta</button>
+  </form>
+</div>

@@ -1,10 +1,23 @@
-<div class="products">
-  @for (comic of comics; track comic.id) {
-  <app-subastas-card [auction]="auction"></app-subastas-card>
+<!-- Botón para abrir -->
+@if (authService.isLoggedIn() === true) {
+  <button class="btn btn-primary open-button" (click)="toggleSidebar()">
+    Crear
+  </button>
+}
+
+<!-- Sidebar animado -->
+<!-- Sidebar animado -->
+<div class="subastas-sidebar" [class.open]="isSidebarOpen">
+  @if (isSidebarOpen) {
+    <button class="close-button" (click)="toggleSidebar()">✕</button>
+    <app-subastas-form />
   }
-  @if (authService.isAdmin()) {
-      <button class="btn btn-primary">
-        Crear
-      </button>
+</div>
+
+
+<!-- Tarjetas de subastas -->
+<div class="products">
+  @for (auction of auctions; track auction.id) {
+    <app-subastas-card [auction]="auction"></app-subastas-card>
   }
 </div>

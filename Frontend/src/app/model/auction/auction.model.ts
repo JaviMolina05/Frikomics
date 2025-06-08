@@ -1,13 +1,13 @@
-import { Comic } from "../comic/comic.model";
-
 export interface Auction {
-  id: number;
-  comic_id: number;
+  id?: number;
+  title: string;
+  condition: 'perfecto' | 'buen estado' | 'regular' | 'muy usado';
+  seller_note?: string;
   start_time: string;
   end_time: string;
   starting_price: number;
-  current_price: number;
-  active: boolean;
+  current_price?: number;
+  active?: boolean;
   image?: string;
-  comic: Comic;
+  winner_id?: number;
 }

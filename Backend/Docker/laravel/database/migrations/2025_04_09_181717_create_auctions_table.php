@@ -12,14 +12,23 @@ return new class extends Migration {
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('comics')->onDelete('cascade');
+
+            // Nuevos campos personalizados
+            $table->string('title');
+            $table->enum('condition', ['perfecto', 'buen estado', 'regular', 'muy usado']);
+            $table->text('seller_note')->nullable();
+
+            // Detalles de la subasta
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->decimal('starting_price', 10, 2); 
+            $table->decimal('current_price', 10, 2)->nullable();
             $table->boolean('active')->default(true);
             $table->string('image')->nullable();
-            $table->decimal('current_price', 10, 2)->nullable();
-            $table->foreignId('winner_id')->nullable()->constrained('users')->nullOnDelete(); 
+
+            // Relación con usuario ganador (opcional)
+            $table->foreignId('winner_id')->nullable()->constrained('users')->nullOnDelete();
+
             $table->timestamps();
         });
     }

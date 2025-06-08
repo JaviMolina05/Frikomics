@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Auction extends Model
 {
     use HasFactory;
-   protected $fillable = [
-        'comic_id', 
+
+    protected $fillable = [
+        'title',
+        'condition',
+        'seller_note',
         'start_time',
         'end_time',
         'starting_price',
@@ -20,11 +23,6 @@ class Auction extends Model
     ];
 
     // Relaciones
-    public function comic()
-    {
-        return $this->belongsTo(Comic::class, 'comic_id'); 
-    }
-
     public function bids()
     {
         return $this->hasMany(Bid::class);
@@ -51,4 +49,3 @@ class Auction extends Model
         return $query->where('start_time', '<=', now())->where('end_time', '>', now());
     }
 }
-

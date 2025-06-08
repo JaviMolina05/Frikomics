@@ -3,40 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\Auction;
-use App\Models\Comic;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
 {
     public function index()
     {
-        return Auction::with(['comic', 'bids'])->get();
+        return Auction::with('bids', 'winner')->get();
     }
 
     public function show($id)
     {
-        return Auction::with(['comic', 'bids'])->findOrFail($id);
+        return Auction::with('bids', 'winner')->findOrFail($id);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'comic_id' => 'required|exists:comics,id',
+            'title' => 'required|string|max:255',
+            'condition' => 'required|in:perfecto,buen estado,regular,muy usado',
+            'seller_note' => 'nullable|string',
             'start_time' => 'required|date',
             'end_time' => 'required|date|after:start_time',
             'starting_price' => 'required|numeric|min:0',
-            'image' => 'nullable|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
+
+        $imagePath = $request->file('image')->store('auctions', 'public');
+
         $auction = Auction::create([
-            'comic_id' => $request->comic_id,
+            'title' => $request->title,
+            'condition' => $request->condition,
+            'seller_note' => $request->seller_note,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
             'starting_price' => $request->starting_price,
             'current_price' => $request->starting_price,
-            'image' => $request->image,
+            'image' => $imagePath,
             'active' => true,
         ]);
+
 
         return response()->json($auction, 201);
     }
@@ -46,9 +53,13 @@ class AuctionController extends Controller
         $auction = Auction::findOrFail($id);
 
         $request->validate([
+            'title' => 'sometimes|required|string|max:255',
+            'condition' => 'sometimes|required|in:perfecto,buen estado,regular,muy usado',
+            'seller_note' => 'nullable|string',
             'start_time' => 'nullable|date',
             'end_time' => 'nullable|date|after:start_time',
             'starting_price' => 'nullable|numeric|min:0',
+            'current_price' => 'nullable|numeric|min:0',
             'image' => 'nullable|string',
             'active' => 'nullable|boolean',
         ]);
@@ -66,4 +77,3 @@ class AuctionController extends Controller
         return response()->json(['message' => 'Subasta eliminada correctamente']);
     }
 }
-
