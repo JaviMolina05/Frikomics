@@ -1,1 +1,21 @@
-/*# sourceMappingURL=home.component.css.map */
+.pagina {
+  padding: 20px;
+}
+.pagina .carousel {
+  width: 100%;
+  max-height: 70vh;
+}
+.pagina .carousel .carousel-img {
+  max-height: 70vh;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.pagina .clickable-image {
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.pagina .clickable-image:hover {
+  transform: scale(1.05);
+}/*# sourceMappingURL=home.component.css.map */

@@ -1,1 +1,34 @@
-<p>hitorial-pedidos works!</p>
+<div class="cuerpo">
+  <app-sidebar></app-sidebar>
+
+  <div class="order-history">
+    @for (pedido of pedidos; track pedido.id) {
+    <div class="pedido">
+      <div class="pedido-header">
+        <h3>Pedido #{{ pedido.id }}</h3>
+        <span class="fecha">{{ pedido.created_at | date: 'short' }}</span>
+      </div>
+
+      <p class="total-pedido">
+        <strong>Total del pedido:</strong> {{ pedido.total | number: '1.2-2' }} €
+      </p>
+
+      <div class="productos">
+        @for (item of pedido.items; track item.comic_id) {
+        <div class="card producto">
+          <img [src]="'http://localhost:8000/storage/' + item.image" class="card-img" alt="{{ item.title }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <p class="card-text">Cantidad: {{ item.quantity }}</p>
+            <p class="card-text">Precio unitario: {{ item.price }} €</p>
+            <p class="card-text">
+              <strong>Total producto:</strong> {{ item.total }} €
+            </p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

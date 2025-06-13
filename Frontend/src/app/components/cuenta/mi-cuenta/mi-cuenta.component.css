@@ -1,62 +1,45 @@
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #cfe6f7;
-}
-
-.sidebar {
-  width: 200px;
-  background-color: #5aa2d6;
-  padding: 20px;
-  color: white;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar li {
-  margin-bottom: 15px;
-}
-
-.sidebar a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.logout {
-  color: #fff;
-  font-weight: bold;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-.product-grid {
-  display: flex;
-  gap: 20px;
-}
-
-.product-card {
-  width: 180px;
+.form-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 1.5rem;
   background: white;
-  padding: 15px;
   border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-container h2 {
+  margin-bottom: 1rem;
   text-align: center;
 }
-
-.image-placeholder {
+.form-container label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+.form-container input {
   width: 100%;
-  height: 100px;
-  background-color: #ddd;
-  margin-bottom: 10px;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.form-container button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #1519ec;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.form-container button:hover {
+  background-color: #0f13c4;
 }
 
-.cuerpo {
+.pagina {
   display: flex;
   flex-direction: row;
+  min-height: 100vh;
+  background-color: rgb(172, 194, 255);
 }/*# sourceMappingURL=mi-cuenta.component.css.map */

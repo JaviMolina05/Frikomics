@@ -1,16 +1,75 @@
 .auction-card {
-  transition: transform 0.3s;
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  min-height: 180px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
+
 .auction-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
-.bid-section {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
+
+.card-img-left {
+  width: 40%;
+  height: 100%;
+  object-fit: cover;
 }
+
+/* Contenido de la tarjeta */
+.card-body {
+  padding: 16px;
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
 .current-bid {
   font-weight: bold;
-  color: #d23;
+  color: #dc2626;
+  margin-top: 10px;
+}
+
+/* Campo de puja */
+.input-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.form-control {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.btn-outline-primary {
+  background: none;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline-primary:hover {
+  background-color: #2563eb;
+  color: white;
 }

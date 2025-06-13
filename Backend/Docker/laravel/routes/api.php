@@ -10,6 +10,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\AuctionController;
+use App\Http\Controllers\OrderController;
 
 Route::group([], function () {
 
@@ -29,7 +30,7 @@ Route::group([], function () {
     Route::post('/user', [UserController::class, 'store']);
 
     // 📦 Subastas
-    Route::get('/auctions', [AuctionController::class, 'index']);       
+    Route::get('/auctions', [AuctionController::class, 'index']);
     Route::get('/auctions/{id}', [AuctionController::class, 'show']);
 
     // 🔐 Rutas protegidas por Sanctum
@@ -69,5 +70,10 @@ Route::group([], function () {
         Route::post('/auctions', [AuctionController::class, 'store']);
         Route::put('/auctions/{id}', [AuctionController::class, 'update']);
         Route::delete('/auctions/{id}', [AuctionController::class, 'destroy']);
+        Route::get('/check-winner-notification', [AuctionController::class, 'checkWinnerNotification']);
+
+        // Historial
+        Route::post('/orders', [OrderController::class, 'storeFromCart']);
+        Route::get('/orders', [OrderController::class, 'history']);
     });
 });

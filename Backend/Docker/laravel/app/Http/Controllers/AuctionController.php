@@ -76,4 +76,29 @@ class AuctionController extends Controller
 
         return response()->json(['message' => 'Subasta eliminada correctamente']);
     }
+
+    public function checkWinnerNotification()
+    {
+        $user = auth()->user();
+
+        // Buscar una subasta ganada no vista aún
+        $auction = Auction::where('winner_id', $user->id)
+            ->where('notified', true)
+            ->where('seen', false)
+            ->latest()
+            ->first();
+
+        if ($auction) {
+            // Marcarla como vista
+            $auction->seen = true;
+            $auction->save();
+
+            return response()->json([
+                'message' => '¡Has ganado la subasta de: ' . $auction->title . '!',
+                'auction_id' => $auction->id,
+            ]);
+        }
+
+        return response()->json(null); 
+    }
 }

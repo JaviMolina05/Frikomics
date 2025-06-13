@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function show()
-    {
-        return response()->json([
+{
+    return response()->json([
+        'data' => [
             'user' => Auth::user()
-        ]);
-    }
+        ]
+    ]);
+}
+
 
     public function store(Request $request)
     {

@@ -1,6 +1,29 @@
-<div class="cuerpo">
-<app-sidebar></app-sidebar>
-<div>
-    <p>Esto es una prueba</p>
-</div>
+<div class="pagina">
+    <app-sidebar></app-sidebar>
+    <div class="form-container">
+        <h2>Mi perfil</h2>
+
+        <form (ngSubmit)="onSubmit()" #perfilForm="ngForm">
+            <!-- Nombre -->
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" [(ngModel)]="perfil.name" required placeholder="Tu nombre" />
+
+            <!-- Correo -->
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" [(ngModel)]="perfil.email" required placeholder="Tu correo" />
+
+            <!-- Contraseña nueva -->
+            <label for="password">Nueva contraseña:</label>
+            <input type="password" id="password" name="password" [(ngModel)]="perfil.password" placeholder="••••••••" />
+
+            <!-- Confirmar contraseña -->
+            <label for="password_confirmation">Confirmar contraseña:</label>
+            <input type="password" id="password_confirmation" name="password_confirmation"
+                [(ngModel)]="perfil.password_confirmation" placeholder="••••••••" />
+
+            <button type="submit">Cambiar</button>
+            <pre>{{ perfil | json }}</pre>
+
+        </form>
+    </div>
 </div>

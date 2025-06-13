@@ -1,3 +1,96 @@
+/* Contenedor principal */
+.pagina {
+  display: flex;
+  gap: 25px;
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(172, 194, 255);
+}
+
+/* Botón para mostrar filtros cuando están ocultos */
+.filter-toggle-inline {
+  padding: 1rem;
+}
+
+.btn-toggle {
+  padding: 10px 14px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-toggle:hover {
+  background-color: #1e40af;
+}
+
+/* Panel de filtros como columna */
+.filter-panel {
+  width: 250px;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  float: right;
+  cursor: pointer;
+  margin-bottom: 10px;
+  color: #6b7280;
+}
+
+.filter-panel h4,
+.filter-panel h5 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.filter-panel label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* Botón aplicar filtros */
+.btn-apply {
+  margin-top: 15px;
+  padding: 10px 12px;
+  width: 100%;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-apply:hover {
+  background-color: #059669;
+}
+
+/* Contenedor de productos */
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  flex: 1;
+  transition: all 0.3s ease-in-out;
+  min-height: 100vh;
+}
+
 .products{
     display: flex;
     justify-content: space-around;

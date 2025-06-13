@@ -3,6 +3,7 @@ import { CartResponse } from '../../model/cart-response/cart-response';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../model/cart-item/cart-item';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,11 +18,15 @@ export class CartComponent {
   shippingCost: number = 0;
   envioSeleccionado: string = '';
   subtotal: number = 0;
+  zonaSeleccionada: string = '';
+  pagoSeleccionado: string = '';
+
 
   constructor(
     public authService: AuthService,
-    private cartService: CartService
-  ) {}
+    private cartService: CartService,
+    private orderService: OrderService
+  ) { }
 
   ngOnInit(): void {
     this.loadCart();
@@ -46,9 +51,9 @@ export class CartComponent {
   }
 
   calcularTotal(): void {
-  this.subtotal = this.cartItems.reduce((acc, item) => acc + item.total_price, 0);
-  this.total = this.subtotal + this.shippingCost;
-}
+    this.subtotal = this.cartItems.reduce((acc, item) => acc + item.total_price, 0);
+    this.total = this.subtotal + this.shippingCost;
+  }
 
   onFormaEnvioChange(event: Event): void {
     const valor = (event.target as HTMLSelectElement).value;
@@ -87,4 +92,17 @@ export class CartComponent {
       }
     });
   }
+
+  comprar(): void {
+  this.orderService.createOrderFromCart().subscribe({
+    next: (res) => {
+      alert('¡Pedido realizado con éxito!');
+      this.loadCart(); 
+    },
+    error: (err) => {
+      console.error('Error al crear el pedido:', err);
+      alert('Hubo un error al procesar tu pedido.');
+    }
+  });
+}
 }

@@ -1,19 +1,60 @@
-@if (authService.isAdmin() && authService.isLoggedIn()) {
+<div class="pagina">
+
+  @if (authService.isAdmin() && authService.isLoggedIn()) {
   <button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button"> <!--TODO: borrar ngif-->
   🛠️ Crear Cómic
 </button>
-
-
 <div class="admin-sidebar" [class.open]="isSidebarOpen">
   <button class="close-btn" (click)="toggleSidebar()">✖</button>
   <app-comics-admin></app-comics-admin> 
 </div>
 }
 
-<div class="products">
-  @for (comic of comics; track comic.id) {
-  <app-comic-list 
-  [comic]="comic"
-  (comicDeleted)="handleComicDeleted($event)"></app-comic-list>
-  }
+  <!-- Botón para mostrar u ocultar el filtro -->
+  <div *ngIf="!isFilterOpen" class="filter-toggle-inline">
+    <button (click)="toggleFilterPanel()" class="btn-toggle">🎛️ Mostrar filtros</button>
+  </div>
+
+  <!-- Panel de filtros (columna) -->
+  <div *ngIf="isFilterOpen" class="filter-panel">
+    <button class="btn-close" (click)="toggleFilterPanel()">✖</button>
+    <h4>Filtrar por:</h4>
+
+    <label>Precio: {{ priceRange[0] }}€ - {{ priceRange[1] }}€</label>
+    <input type="range" min="0" max="100" [(ngModel)]="priceRange[0]" />
+    <input type="range" min="0" max="100" [(ngModel)]="priceRange[1]" />
+
+    <h5>Tipo</h5>
+    <div *ngFor="let t of tipos">
+      <label>
+        <input type="checkbox" [(ngModel)]="selectedTipos[t]" /> {{ t }}
+      </label>
+    </div>
+
+    <h5>Editorial</h5>
+    <div *ngFor="let e of editoriales">
+      <label>
+        <input type="checkbox" [(ngModel)]="selectedEditoriales[e]" /> {{ e }}
+      </label>
+    </div>
+
+    <h5>Género</h5>
+    <div *ngFor="let g of generos">
+      <label>
+        <input type="checkbox" [(ngModel)]="selectedGeneros[g]" /> {{ g }}
+      </label>
+    </div>
+
+    <button class="btn-apply" (click)="applyFilters()">Aplicar filtros</button>
+  </div>
+
+  <!-- Contenedor de productos -->
+  <div class="products">
+    @for (comic of comics; track comic.id) {
+      <app-comic-list 
+        [comic]="comic"
+        (comicDeleted)="handleComicDeleted($event)">
+      </app-comic-list>
+    }
+  </div>
 </div>

@@ -1,9 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+<nav class="navbar navbar-expand-lg custom-navbar shadow-sm">
   <div class="container">
-    <a class="navbar-brand fw-bold" routerLink="/">Frikomics</a>
+    <img class="navbar-brand fw-bold logo" style="height: 50px; cursor: pointer;"  src="assets/logo.png" routerLink="/"/>
     <div class="search-container">
-      <input type="text" id="search" placeholder="Buscar..." />
-      <button type="button" onclick="searchFunction()">Buscar</button>
+      <input type="text" [(ngModel)]="searchText" placeholder="Buscar..." name="search" class="search"/>
+      <button type="button" (click)="onSearch()" class="btn btn-primary">Buscar</button>
+
     </div>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -34,17 +35,17 @@
       <img src="assets/107831.png" height="18px" width="18px" style="cursor: pointer;" />
 
       <div class="cart-preview" *ngIf="showCart">
-  @if (cartItems.length > 0) {
-    @for (item of cartItems; track item.comic_id) {
-      <div class="cart-item">
-        <p>
-          {{ item.title }} x{{ item.quantity }} — ${{ item.total_price | number:'1.2-2' }}
-        </p>
-      </div>
-    }
-  } @else {
-    <p>Tu carrito está vacío</p>
-  }
+        @if (cartItems.length > 0) {
+        @for (item of cartItems; track item.comic_id) {
+        <div class="cart-item">
+          <p>
+            {{ item.title }} x{{ item.quantity }} — ${{ item.total_price | number:'1.2-2' }}
+          </p>
+        </div>
+        }
+        } @else {
+        <p>Tu carrito está vacío</p>
+        }
 
         <a routerLink="/cart" class="btn btn-dark">Ver carrito</a>
       </div>

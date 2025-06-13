@@ -2,10 +2,101 @@
     display: flex;
     flex-direction: row;
     gap: 15px;
+    background-color: rgb(172, 194, 255);
 }
 
 .card button{
     display: flex;
     justify-content: space-around;
     flex-wrap: nowrap;
+}
+
+.products{
+    margin: 20px;
+}
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.product-card {
+  width: 260px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.product-body {
+  padding: 16px;
+  text-align: center;
+}
+
+.product-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.product-price {
+  font-size: 1rem;
+  color: #10b981;
+  margin-bottom: 16px;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-cart {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-cart:hover {
+  background-color: #1e40af;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+}
+
+.no-fav-msg {
+  padding: 20px;
+  font-size: 1.1rem;
+  color: #6b7280;
+  text-align: center;
 }

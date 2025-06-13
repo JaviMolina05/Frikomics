@@ -1,39 +1,39 @@
-<div class="product-detail">
-  <div>
-    <img *ngIf="comic?.image" [src]="'http://localhost:8000/storage/' + comic?.image" style="width: 300px;">
+<div class="product-detail-container" *ngIf="comic">
+  <div class="product-image">
+    <img *ngIf="comic?.image" [src]="'http://localhost:8000/storage/' + comic.image" alt="{{ comic.title }}">
   </div>
 
-  <div class="product-info" *ngIf="comic">
+  <div class="product-info">
     <h2>{{ comic.title }}</h2>
-    <ul class="list-unstyled">
+    <ul class="product-meta">
       <li><strong>Editorial:</strong> {{ comic.editorial }}</li>
       <li><strong>Género:</strong> {{ comic.genero }}</li>
       <li><strong>Tipo:</strong> {{ comic.tipo }}</li>
       <li><strong>ISBN:</strong> 978-84-1051-943-5</li>
-      <li><strong>Issue: </strong> 256</li>
+      <li><strong>Issue:</strong> 256</li>
       <li><strong>Encuadernación:</strong> Rústica</li>
     </ul>
     <div class="social-icons">
-      <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="facebook">
-      <img src="https://img.icons8.com/fluency/48/twitter.png" alt="twitter">
-      <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="linkedin">
-      <img src="https://img.icons8.com/color/48/pinterest--v1.png" alt="pinterest">
-      <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="whatsapp">
-      <img src="https://img.icons8.com/color/48/new-post.png" alt="email">
+      <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook">
+      <img src="https://img.icons8.com/fluency/48/twitter.png" alt="Twitter">
+      <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn">
+      <img src="https://img.icons8.com/color/48/pinterest--v1.png" alt="Pinterest">
+      <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="Whatsapp">
+      <img src="https://img.icons8.com/color/48/new-post.png" alt="Email">
     </div>
   </div>
 
-  <div class="product-sidebar" *ngIf="comic">
+  <div class="product-sidebar">
     <p class="price">{{ comic.price }} €</p>
-    <p><small>IVA incluido</small></p>
+    <p class="tax-note">IVA incluido</p>
 
     <ng-container *ngIf="comic.stock > 0; else noStock">
-      <button class="btn btn-primary w-100 mb-2">🛒 Añadir a mi cesta</button>
-      <button class="btn btn-primary w-100 mb-2">Click & collect</button>
+      <button class="btn primary-btn">🛒 Añadir a mi cesta</button>
+      <button class="btn secondary-btn">Click & collect</button>
     </ng-container>
 
     <ng-template #noStock>
-      <p class="text-danger">Producto sin stock</p>
+      <p class="out-of-stock">Producto sin stock</p>
     </ng-template>
   </div>
 </div>

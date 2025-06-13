@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,22 @@ import { Component } from '@angular/core';
   standalone: false,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'Frontend';
-}
+export class AppComponent implements OnInit{
+ constructor(private notificationService: NotificationService) {}
+
+  ngOnInit(): void {
+    this.startPollingForWinner();
+  }
+
+  startPollingForWinner(): void {
+    setInterval(() => {
+      this.notificationService.checkWinnerNotification().subscribe((res) => {
+        if (res?.message) {
+
+          alert(res.message);
+
+   
+        }
+      });
+    }, 10000); 
+  }}

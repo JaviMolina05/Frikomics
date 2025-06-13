@@ -58,4 +58,10 @@ public function cart()
     return $this->hasOne(\App\Models\Cart::class);
 }
 
+public function orders()
+{
+    return $this->hasMany(Order::class);
+}
+
+
 }

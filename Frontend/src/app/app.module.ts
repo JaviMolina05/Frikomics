@@ -27,6 +27,8 @@ import { SubastasDetailComponent } from './components/Subastas/subastas-detail/s
 import { PujasComponent } from './components/Subastas/pujas/pujas.component';
 import { MisSubastasComponent } from './components/Subastas/mis-subastas/mis-subastas.component';
 import { SubastasCardComponent } from './components/Subastas/subastas-card/subastas-card.component';
+import { HistorialPedidosCardComponent } from './components/cuenta/historial-pedidos-card/historial-pedidos-card.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { SubastasCardComponent } from './components/Subastas/subastas-card/subas
     PujasComponent,
     MisSubastasComponent,
     SubastasCardComponent,
+    HistorialPedidosCardComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

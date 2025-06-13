@@ -1,18 +1,28 @@
 <div class="cuerpo">
-<app-sidebar></app-sidebar>
-<div class="products" *ngIf="favoritos.length > 0; else sinFavoritos">
-  <div *ngFor="let comic of favoritos" class="card" style="width: 18rem;">
-    <img [src]="'http://localhost:8000/storage/' + comic.image" class="card-img-top" alt="{{comic.title}}" (click)="detailComic(comic.id)">
-    <div class="card-body">
-      <h5 class="card-title">{{comic.title}}</h5>
-      <p class="card-text">{{comic.price}} €</p>
-      <button class="btn btn-primary" (click)="addToCart(comic)">Añadir al carrito</button>
-      <button class="btn btn-danger" (click)="deleteComic(comic.id)">Eliminar</button>
+  <app-sidebar></app-sidebar>
+
+  <div class="products" *ngIf="favoritos.length > 0; else sinFavoritos">
+    <div *ngFor="let comic of favoritos" class="product-card">
+      <img
+        [src]="'http://localhost:8000/storage/' + comic.image"
+        class="product-image"
+        alt="{{ comic.title }}"
+        (click)="detailComic(comic.id)"
+      />
+
+      <div class="product-body">
+        <h5 class="product-title">{{ comic.title }}</h5>
+        <p class="product-price">{{ comic.price }} €</p>
+
+        <div class="product-actions">
+          <button class="btn btn-cart" (click)="addToCart(comic)">🛒 Añadir al carrito</button>
+          <button class="btn btn-delete" (click)="deleteComic(comic.id)">🗑️ Eliminar</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<ng-template #sinFavoritos>
-  <p>No tienes cómics en favoritos aún.</p>
-</ng-template>
-</div>
 
+  <ng-template #sinFavoritos>
+    <p class="no-fav-msg">No tienes cómics en favoritos aún.</p>
+  </ng-template>
+</div>

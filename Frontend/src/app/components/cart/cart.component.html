@@ -1,91 +1,73 @@
-<h1>Mi Compra</h1>
+<div class="pagina">
+<h1 class="main-title">Mi Compra</h1>
 
-<table>
-    <thead>
-        <tr>
-            <th>Artículo</th>
-            <th>Cantidad</th>
-            <th>P. Unid.</th>
-            <th>Precio</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @for (item of cartItems; track item.comic_id; let i = $index) {
-        <tr>
-            <td class="product">
-                <img src="https://via.placeholder.com/80x80.png?text=Caja" alt="Caja">
-                <div class="product-name">{{item.title}}</div>
-            </td>
-            <td>
-                <input type="number" [(ngModel)]="cartItems[i].quantity" style="width: 60px;">
-                <span class="actions">
-                    <button class="btn btn-success" (click)="actualizar(i)">Actualizar</button> |
-                    <button class="btn btn-danger" (click)="eliminar(i)">Eliminar</button>
-                </span>
-            </td>
-            <td>{{item.price}} €</td>
-            <td><strong>{{item.total_price}} €</strong></td>
-        </tr>
-        }
-
-    </tbody>
+<table class="cart-table">
+  <thead>
+    <tr>
+      <th>Artículo</th>
+      <th>Cantidad</th>
+      <th>P. Unid.</th>
+      <th>Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of cartItems; track item.comic_id; let i = $index) {
+    <tr>
+      <td class="product">{{ item.title }}</td>
+      <td>
+        <div class="qty-actions">
+          <input type="number" [(ngModel)]="cartItems[i].quantity" min="1">
+          <button class="btn btn-update" (click)="actualizar(i)">Actualizar</button>
+          <button class="btn btn-delete" (click)="eliminar(i)">Eliminar</button>
+        </div>
+      </td>
+      <td>{{ item.price }} €</td>
+      <td><strong>{{ item.total_price }} €</strong></td>
+    </tr>
+    }
+  </tbody>
 </table>
 
-<div class="summary">
-    <h2>Gastos de envío</h2>
-    <p>Seleccione para calcular los gastos de envío</p>
-    <p style="color: #999;">Selecciona la zona de envío, la forma de pago y la forma de envío</p>
+<div class="shipping-section">
+  <h2>Gastos de envío</h2>
+  <p>Seleccione para calcular los gastos de envío</p>
+  <p class="hint">Selecciona la zona de envío, la forma de pago y la forma de envío</p>
 
-    <div class="form-grid">
-        <div class="form-group">
-            <label for="zona">Zona de Envío</label>
-            <select id="zona">
-                <option>Seleccione zona de envío</option>
-                <option value="andalucia">Andalucía</option>
-                <option value="aragon">Aragón</option>
-                <option value="asturias">Asturias (Principado de)</option>
-                <option value="baleares">Islas Baleares</option>
-                <option value="canarias">Islas Canarias</option>
-                <option value="cantabria">Cantabria</option>
-                <option value="castillalamancha">Castilla-La Mancha</option>
-                <option value="castillayleon">Castilla y León</option>
-                <option value="catalunya">Cataluña</option>
-                <option value="ceuta">Ceuta</option>
-                <option value="extremadura">Extremadura</option>
-                <option value="galicia">Galicia</option>
-                <option value="larioja">La Rioja</option>
-                <option value="madrid">Comunidad de Madrid</option>
-                <option value="melilla">Melilla</option>
-                <option value="murcia">Región de Murcia</option>
-                <option value="navarra">Navarra (Comunidad Foral de)</option>
-                <option value="paisvasco">País Vasco</option>
-                <option value="valencia">Comunidad Valenciana</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="pago">Forma de Pago</label>
-            <select id="pago">
-                <option>Seleccione forma de pago</option>
-                <option>Tarjeta</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="envio">Forma de Envío</label>
-            <select id="envio" (change)="onFormaEnvioChange($event)">
-                <option value="">Seleccione forma de envío</option>
-                <option>Recogida en tienda</option>
-                <option>Envio</option>
-            </select>
-        </div>
-
-        <!-- Mostrar costo de envío y total -->
-        <div class="totales">
-            <p>Subtotal: {{ subtotal | number:'1.2-2' }} €</p>
-            <p *ngIf="shippingCost > 0">Envío: {{ shippingCost | number:'1.2-2' }} €</p>
-            <p><strong>Total: {{ total | number:'1.2-2' }} €</strong></p>
-        </div>
-        
-
+  <div class="form-grid">
+    <div class="form-group">
+      <label for="zona">Zona de Envío</label>
+      <select id="zona" [(ngModel)]="zonaSeleccionada" name="zona">
+        <option value="">Seleccione zona de envío</option>
+        <option value="andalucia">Andalucia</option>
+      </select>
     </div>
+
+    <div class="form-group">
+      <label for="pago">Forma de Pago</label>
+      <select id="pago" [(ngModel)]="pagoSeleccionado" name="pago">
+        <option value="">Seleccione forma de pago</option>
+        <option value="Tarjeta">Tarjeta</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="envio">Forma de Envío</label>
+      <select id="envio" [(ngModel)]="envioSeleccionado" (change)="onFormaEnvioChange($event)">
+        <option value="">Seleccione forma de envío</option>
+        <option>Recogida en tienda</option>
+        <option>Envio</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="totales">
+    <p>Subtotal: {{ subtotal | number:'1.2-2' }} €</p>
+    <p *ngIf="shippingCost > 0">Envío: {{ shippingCost | number:'1.2-2' }} €</p>
+    <p><strong>Total: {{ total | number:'1.2-2' }} €</strong></p>
+  </div>
+
+  <div *ngIf="zonaSeleccionada && pagoSeleccionado && envioSeleccionado === 'Envio'" class="buy-button">
+    <button class="btn btn-primary" (click)="comprar()">Comprar</button>
+  </div>
+</div>
 </div>

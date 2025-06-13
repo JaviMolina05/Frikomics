@@ -1,0 +1,22 @@
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1rem 0;
+  text-align: center;
+}
+.footer .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.footer .footer-nav {
+  margin-top: 0.5rem;
+}
+.footer .footer-nav a {
+  color: #aaa;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+.footer .footer-nav a:hover {
+  color: #fff;
+}/*# sourceMappingURL=footer.component.css.map */

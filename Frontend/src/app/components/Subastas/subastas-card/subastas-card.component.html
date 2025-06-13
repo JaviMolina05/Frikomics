@@ -1,34 +1,29 @@
-<div class="products">
-  <div class="card auction-card">
-    <img
-      [src]="'http://localhost:8000/storage/' + auction.image"
-      class="card-img-top"
-      alt="{{ auction.title }}"
-    />
+<div class="card auction-card d-flex flex-row">
+  <img
+    [src]="'http://localhost:8000/storage/' + auction.image"
+    class="card-img-left"
+    alt="{{ auction.title }}"
+  />
 
-    <div class="card-body">
-      <h5 class="card-title">{{ auction.title }}</h5>
-      <p class="text-muted">Estado: {{ auction.condition }}</p>
-      <p>{{ auction.seller_note }}</p>
+  <div class="card-body">
+    <h5 class="card-title">{{ auction.title }}</h5>
+    <p class="text-muted">Estado: {{ auction.condition }}</p>
+    <p>{{ auction.seller_note }}</p>
+    <p class="current-bid">💰 Puja actual: {{ auction.current_price }} €</p>
 
-      <p class="current-bid">💰 Puja actual: {{ auction.current_price }} €</p>
-
-      <div class="input-group mt-2">
-        <input
-          type="number"
-          [(ngModel)]="bidAmount"
-          [min]="auction.current_price! + 1"
-          class="form-control"
-          placeholder="Tu puja"
-        />
-        <button class="btn btn-outline-primary" (click)="placeBid()">
-          Pujar
-        </button>
-      </div>
-
-      <small class="text-muted"
-        >Puja mínima: {{ auction.current_price! + 1 }} €</small
-      >
+    <div class="input-group mt-2">
+      <input
+        type="number"
+        [(ngModel)]="bidAmount"
+        [min]="auction.current_price! + 1"
+        class="form-control"
+        placeholder="Tu puja"
+      />
+      <button class="btn btn-outline-primary" (click)="placeBid()">Pujar</button>
     </div>
+
+    <small class="text-muted">
+      Puja mínima: {{ auction.current_price! + 1 }} €
+    </small>
   </div>
 </div>

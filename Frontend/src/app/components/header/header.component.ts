@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../model/cart-item/cart-item';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,12 +14,14 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];
   showCart = false;
+  searchText: string = '';
 
   private subs: Subscription[] = [];
 
   constructor(
     public authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +56,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.forEach(sub => sub.unsubscribe());
+  }
+
+  onSearch() {
+    if (this.searchText.trim()) {
+      this.router.navigate(['/productos'], {
+        queryParams: { q: this.searchText.trim() }
+      });
+    }
   }
 }
 
