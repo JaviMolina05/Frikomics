@@ -14,15 +14,32 @@ import { FavoriteService } from '../../../services/favorite.service';
 })
 export class FavoritosComponent {
   favoritos: Comic[] = [];
-
+  sidebarVisible = false;
+  isMobile = false;
   constructor(
     private favoriteService: FavoriteService,
     private cartService: CartService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.loadFavorites();
+    this.loadFavorites(); this.checkScreen();
+    window.addEventListener('resize', () => this.checkScreen());
+  }
+
+  checkScreen() {
+    this.isMobile = window.innerWidth <= 768;
+    if (!this.isMobile) {
+      this.sidebarVisible = false;
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  closeSidebar() {
+    this.sidebarVisible = false;
   }
 
   loadFavorites(): void {

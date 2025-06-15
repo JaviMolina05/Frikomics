@@ -128,4 +128,8 @@
 .pagina {
   min-height: 100vh;
   background-color: rgb(172, 194, 255);
+}
+
+td {
+  background-color: white;
 }/*# sourceMappingURL=cart.component.css.map */

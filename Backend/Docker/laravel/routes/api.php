@@ -25,16 +25,17 @@ Route::group([], function () {
     // 🛒 Carrito público (opcional)
     Route::get('/cart', [CartController::class, 'index']);
 
-    // 👤 Usuario (opcional)
-    Route::get('/user', [UserController::class, 'show']);
-    Route::post('/user', [UserController::class, 'store']);
-
     // 📦 Subastas
     Route::get('/auctions', [AuctionController::class, 'index']);
     Route::get('/auctions/{id}', [AuctionController::class, 'show']);
 
     // 🔐 Rutas protegidas por Sanctum
     Route::middleware(['auth:sanctum'])->group(function () {
+
+        // 👤 Usuario (opcional)
+        Route::get('/user', [UserController::class, 'show']);
+        Route::post('/user', [UserController::class, 'store']);
+        Route::put('/user', [UserController::class, 'update']);
 
         // 🔓 Logout
         Route::post('/logout', [AuthController::class, 'logout']);

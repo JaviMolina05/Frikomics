@@ -9,7 +9,8 @@ import { OrderService } from '../../../services/order.service';
 })
 export class HitorialPedidosComponent {
   pedidos: any[] = [];
-
+ sidebarVisible = false;
+  isMobile = false;
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -21,5 +22,22 @@ export class HitorialPedidosComponent {
         console.error('Error al cargar historial de pedidos', err);
       }
     });
+    this.checkScreen();
+    window.addEventListener('resize', () => this.checkScreen());
+  }
+
+  checkScreen() {
+    this.isMobile = window.innerWidth <= 768;
+    if (!this.isMobile) {
+      this.sidebarVisible = false;
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  closeSidebar() {
+    this.sidebarVisible = false;
   }
 }

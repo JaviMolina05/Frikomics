@@ -16,8 +16,6 @@
     <div class="social-icons">
       <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook">
       <img src="https://img.icons8.com/fluency/48/twitter.png" alt="Twitter">
-      <img src="https://img.icons8.com/fluency/48/linkedin.png" alt="LinkedIn">
-      <img src="https://img.icons8.com/color/48/pinterest--v1.png" alt="Pinterest">
       <img src="https://img.icons8.com/color/48/whatsapp--v1.png" alt="Whatsapp">
       <img src="https://img.icons8.com/color/48/new-post.png" alt="Email">
     </div>
@@ -28,12 +26,22 @@
     <p class="tax-note">IVA incluido</p>
 
     <ng-container *ngIf="comic.stock > 0; else noStock">
-      <button class="btn primary-btn">🛒 Añadir a mi cesta</button>
-      <button class="btn secondary-btn">Click & collect</button>
+      <button class="btn primary-btn" (click)="addToCart(comic)">🛒 Añadir a mi cesta</button>
+      <button class="btn favorite-btn" (click)="toggleFavorite(comic)">
+        <ng-container *ngIf="isFavorite(comic.id); else notFav">❤️ Favorito</ng-container>
+        <ng-template #notFav>🤍 Añadir a Favoritos</ng-template>
+      </button>
     </ng-container>
+
+
 
     <ng-template #noStock>
       <p class="out-of-stock">Producto sin stock</p>
     </ng-template>
+  </div>
+
+  <div class="product-description">
+    <h3>Descripción del producto</h3>
+    <p>{{ comic.description }}</p>
   </div>
 </div>

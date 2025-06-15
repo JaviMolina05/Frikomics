@@ -1,7 +1,15 @@
 <div class="pagina">
-    <app-sidebar></app-sidebar>
+      <!-- Botón visible solo en móvil -->
+<button class="toggle-sidebar-btn" (click)="toggleSidebar()" *ngIf="isMobile">
+  ☰ Menú
+</button>
+
+<!-- Sidebar con clase dinámica -->
+<app-sidebar [ngClass]="{ 'mobile-sidebar': isMobile, 'visible': sidebarVisible }"></app-sidebar>
+
+<div class="overlay" *ngIf="isMobile && sidebarVisible" (click)="closeSidebar()"></div>
     <div class="form-container">
-        <h2>Mi perfil</h2>
+        <h2>👤Mi perfil</h2>
 
         <form (ngSubmit)="onSubmit()" #perfilForm="ngForm">
             <!-- Nombre -->
@@ -22,7 +30,6 @@
                 [(ngModel)]="perfil.password_confirmation" placeholder="••••••••" />
 
             <button type="submit">Cambiar</button>
-            <pre>{{ perfil | json }}</pre>
 
         </form>
     </div>

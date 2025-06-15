@@ -1,6 +1,13 @@
 <div class="cuerpo">
-  <app-sidebar></app-sidebar>
+  <!-- Botón visible solo en móvil -->
+<button class="toggle-sidebar-btn" (click)="toggleSidebar()" *ngIf="isMobile">
+  ☰ Menú
+</button>
 
+<!-- Sidebar con clase dinámica -->
+<app-sidebar [ngClass]="{ 'mobile-sidebar': isMobile, 'visible': sidebarVisible }"></app-sidebar>
+
+<div class="overlay" *ngIf="isMobile && sidebarVisible" (click)="closeSidebar()"></div>
   <div class="order-history">
     @for (pedido of pedidos; track pedido.id) {
     <div class="pedido">

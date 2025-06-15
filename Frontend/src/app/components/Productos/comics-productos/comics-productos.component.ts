@@ -77,17 +77,23 @@ export class ComicsProductosComponent implements OnInit {
     this.comics = this.allComics.filter((comic) => {
       const inPriceRange = comic.price >= this.priceRange[0] && comic.price <= this.priceRange[1];
 
-      const tipoOk = Object.values(this.selectedTipos).some(v => v)
-        ? this.selectedTipos[comic.tipo]
-        : true;
+      const tipoValue = comic.tipo?.toLowerCase() || '';
+    const tipoKey = Object.keys(this.selectedTipos).find(k => k.toLowerCase() === tipoValue);
+    const tipoOk = Object.values(this.selectedTipos).some(v => v)
+      ? !!(tipoKey && this.selectedTipos[tipoKey])
+      : true;
 
-      const editorialOk = Object.values(this.selectedEditoriales).some(v => v)
-        ? this.selectedEditoriales[comic.editorial]
-        : true;
+    const editorialValue = comic.editorial?.toLowerCase() || '';
+    const editorialKey = Object.keys(this.selectedEditoriales).find(k => k.toLowerCase() === editorialValue);
+    const editorialOk = Object.values(this.selectedEditoriales).some(v => v)
+      ? !!(editorialKey && this.selectedEditoriales[editorialKey])
+      : true;
 
-      const generoOk = Object.values(this.selectedGeneros).some(v => v)
-        ? this.selectedGeneros[comic.genero]
-        : true;
+    const generoValue = comic.genero?.toLowerCase() || '';
+    const generoKey = Object.keys(this.selectedGeneros).find(k => k.toLowerCase() === generoValue);
+    const generoOk = Object.values(this.selectedGeneros).some(v => v)
+      ? !!(generoKey && this.selectedGeneros[generoKey])
+      : true;
 
       return inPriceRange && tipoOk && editorialOk && generoOk;
     });

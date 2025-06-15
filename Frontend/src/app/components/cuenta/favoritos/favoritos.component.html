@@ -1,5 +1,13 @@
 <div class="cuerpo">
-  <app-sidebar></app-sidebar>
+  <!-- Botón visible solo en móvil -->
+<button class="toggle-sidebar-btn" (click)="toggleSidebar()" *ngIf="isMobile">
+  ☰ Menú
+</button>
+
+<!-- Sidebar con clase dinámica -->
+<app-sidebar [ngClass]="{ 'mobile-sidebar': isMobile, 'visible': sidebarVisible }"></app-sidebar>
+
+<div class="overlay" *ngIf="isMobile && sidebarVisible" (click)="closeSidebar()"></div>
 
   <div class="products" *ngIf="favoritos.length > 0; else sinFavoritos">
     <div *ngFor="let comic of favoritos" class="product-card">

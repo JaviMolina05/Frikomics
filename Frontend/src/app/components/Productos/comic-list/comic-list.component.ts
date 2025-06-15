@@ -35,16 +35,20 @@ export class ComicListComponent {
   this.router.navigate(['/detalle', id]);  
 }
 addToCart() {
+  if (this.comic.stock > 0) {
     this.cartService.addToCart(this.comic.id, 1).subscribe({
-      next: (res) => {
-        console.log(this.comic.id);
+      next: () => {
         alert('Producto añadido al carrito');
       },
-      error: (err) => {
-        alert('Error al añadir al carrito, intentelo mas tarde'); //TODO: Modificar las alertas
+      error: () => {
+        alert('Error al añadir al carrito, inténtelo más tarde');
       }
     });
+  } else {
+    alert('No hay stock disponible para este producto');
   }
+}
+
 addToFavorites() {
   this.comicService.addToFavorites(this.comic.id).subscribe({
     next: () => {

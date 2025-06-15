@@ -100,3 +100,87 @@
   color: #6b7280;
   text-align: center;
 }
+@media (max-width: 768px) {
+  .cuerpo {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .products {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 0;
+  }
+
+  .product-card {
+    width: 90%; // O 100% si prefieres que llene el ancho
+    max-width: 400px;
+  }
+
+  .product-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .btn {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .no-fav-msg {
+    padding: 2rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Botón menú móvil */
+.toggle-sidebar-btn {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000; // MÁS BAJO que el sidebar
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar deslizable */
+@media (max-width: 768px) {
+  .toggle-sidebar-btn {
+    display: block;
+  }
+
+  app-sidebar.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; // Oculto
+    width: 250px;
+    height: 100vh;
+      background-color: #5aa2d6;
+
+    z-index: 1100; // MÁS ALTO que el botón
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+    transition: left 0.4s ease;
+  }
+
+  app-sidebar.mobile-sidebar.visible {
+    left: 0;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1090; // debajo del sidebar, encima del contenido
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}

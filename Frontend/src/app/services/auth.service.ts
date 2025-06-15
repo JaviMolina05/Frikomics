@@ -15,12 +15,14 @@ export class AuthService {
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
-        const token = response.data?.accessToken;
-        const user = response.data?.user;
+        // Ajusta según el formato exacto de tu backend
+        const token = response.data?.accessToken || response.access_token;
+        const user = response.data?.user || response.user;
+
         if (token && user) {
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
-          this.userChanged.next(); // 🔁 Emitir cambio
+          this.userChanged.next(); // Emitir cambio
         }
       })
     );
@@ -29,7 +31,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.userChanged.next(); // 🔁 Emitir cambio
+    this.userChanged.next(); // Emitir cambio
   }
 
   isLoggedIn(): boolean {

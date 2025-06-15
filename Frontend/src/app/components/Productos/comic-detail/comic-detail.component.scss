@@ -8,6 +8,9 @@
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  min-height: 100vh;
+  background-color: rgb(172, 194, 255);
+
 }
 
 .product-image img {
@@ -119,5 +122,19 @@
   .product-sidebar {
     width: 100%;
     margin-top: 20px;
+  }
+}
+
+.favorite-btn {
+  background-color: #ffe6e6;
+  color: #d6336c;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #ffccd5;
   }
 }

@@ -15,24 +15,26 @@ export class MiCuentaComponent {
     password: '',
     password_confirmation: ''
   };
-
+  sidebarVisible = false;
+  isMobile = false;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-  console.log("ngOnInit ejecutado");
+    console.log("ngOnInit ejecutado");
 
-  this.http.get('/api/user').subscribe({
-    next: (res: any) => {
-      console.log('Respuesta del servidor', res);
-      this.perfil.name = res.data.user.name;
-      this.perfil.email = res.data.user.email;
-    },
-    error: (err) => {
-      console.error('Error en GET /api/user', err);
-    }
-  });
-}
-
+    this.http.get('http://localhost:8000/api/user').subscribe({
+      next: (res: any) => {
+        console.log('Respuesta del servidor', res);
+        this.perfil.name = res.user.name;
+        this.perfil.email = res.user.email;
+      },
+      error: (err) => {
+        console.error('Error en GET /api/user', err);
+      }
+    });
+    this.checkScreen();
+    window.addEventListener('resize', () => this.checkScreen());
+  }
 
   onSubmit() {
     const data: any = {
@@ -45,10 +47,25 @@ export class MiCuentaComponent {
       data.password_confirmation = this.perfil.password_confirmation;
     }
 
-    this.http.put('/api/user', data).subscribe({
+    this.http.put('http://localhost:8000/api/user', data).subscribe({
       next: () => alert('Perfil actualizado correctamente.'),
       error: () => alert('Error al actualizar el perfil.')
     });
+  }
+
+  checkScreen() {
+    this.isMobile = window.innerWidth <= 768;
+    if (!this.isMobile) {
+      this.sidebarVisible = false;
+    }
+  }
+
+  toggleSidebar() {
+    this.sidebarVisible = !this.sidebarVisible;
+  }
+
+  closeSidebar() {
+    this.sidebarVisible = false;
   }
 }
 

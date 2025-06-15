@@ -1,5 +1,7 @@
+@charset "UTF-8";
 .pagina {
   padding: 20px;
+  background-color: rgb(172, 194, 255);
 }
 .pagina .carousel {
   width: 100%;
@@ -18,4 +20,14 @@
 }
 .pagina .clickable-image:hover {
   transform: scale(1.05);
+}
+
+.clickable-image {
+  height: 300px;
+  /* Ajusta este valor según tu diseño */
+  -o-object-fit: cover;
+     object-fit: cover;
+  /* Recorta la imagen para que se ajuste sin deformarse */
+  width: 100%;
+  /* Asegura que mantenga el ancho del contenedor */
 }/*# sourceMappingURL=home.component.css.map */

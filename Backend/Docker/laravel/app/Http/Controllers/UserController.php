@@ -11,9 +11,7 @@ class UserController extends Controller
     public function show()
 {
     return response()->json([
-        'data' => [
             'user' => Auth::user()
-        ]
     ]);
 }
 

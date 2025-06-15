@@ -73,3 +73,26 @@
   background-color: #2563eb;
   color: white;
 }
+@media (max-width: 768px) {
+  .auction-card {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .card-title,
+  .text-muted,
+  .current-bid,
+  small {
+    text-align: center;
+  }
+
+  .input-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .form-control,
+  .btn-outline-primary {
+    width: 100%;
+  }
+}
