@@ -7,9 +7,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ComicService {
-  getAll() {
-    throw new Error('Method not implemented.');
-  }
   private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}

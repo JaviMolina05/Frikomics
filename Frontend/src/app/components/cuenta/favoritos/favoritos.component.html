@@ -12,7 +12,7 @@
   <div class="products" *ngIf="favoritos.length > 0; else sinFavoritos">
     <div *ngFor="let comic of favoritos" class="product-card">
       <img
-        [src]="'http://localhost:8000/storage/' + comic.image"
+        [src]="'http://localhost:8000/storage/comics/' + comic.image"
         class="product-image"
         alt="{{ comic.title }}"
         (click)="detailComic(comic.id)"

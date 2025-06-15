@@ -1,7 +1,7 @@
 // comic-list.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Comic } from '../../../model/comic/comic.model';
-import { AuthService } from '../../../services/auth.service.spec';
+import { AuthService } from '../../../services/auth.service';
 import { ComicService } from '../../../services/comic.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
@@ -32,31 +32,53 @@ export class ComicListComponent {
     }
   }
   public detailComic(id: number) {
-  this.router.navigate(['/detalle', id]);  
-}
-addToCart() {
-  if (this.comic.stock > 0) {
-    this.cartService.addToCart(this.comic.id, 1).subscribe({
+    this.router.navigate(['/detalle', id]);
+  }
+  addToCart() {
+    if (this.comic.stock > 0) {
+      this.cartService.addToCart(this.comic.id, 1).subscribe({
+        next: () => {
+          alert('Producto añadido al carrito');
+        },
+        error: () => {
+          alert('Error al añadir al carrito, inténtelo más tarde');
+        }
+      });
+    } else {
+      alert('No hay stock disponible para este producto');
+    }
+  }
+
+  addToFavorites() {
+    this.comicService.addToFavorites(this.comic.id).subscribe({
       next: () => {
-        alert('Producto añadido al carrito');
+        alert('Cómic añadido a favoritos');
       },
       error: () => {
-        alert('Error al añadir al carrito, inténtelo más tarde');
+        alert('Error al añadir a favoritos');
       }
     });
-  } else {
-    alert('No hay stock disponible para este producto');
   }
-}
+  isFavorite(comicId: number): boolean {
+    return !!localStorage.getItem(`fav-${comicId}`);
+  }
 
-addToFavorites() {
-  this.comicService.addToFavorites(this.comic.id).subscribe({
-    next: () => {
-      alert('Cómic añadido a favoritos');
-    },
-    error: () => {
-      alert('Error al añadir a favoritos');
+  toggleFavorite() {
+    if (this.isFavorite(this.comic.id)) {
+      localStorage.removeItem(`fav-${this.comic.id}`);
+      alert(`"${this.comic.title}" se quitó de favoritos.`);
+    } else {
+      this.comicService.addToFavorites(this.comic.id).subscribe({
+        next: () => {
+          localStorage.setItem(`fav-${this.comic.id}`, 'true');
+          alert(`Cómic "${this.comic.title}" añadido a favoritos.`);
+        },
+        error: () => {
+          alert('Error al añadir a favoritos.');
+        }
+      });
     }
-  });
-}
+  }
+
+
 }

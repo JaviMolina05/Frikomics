@@ -9,8 +9,14 @@ class AuctionController extends Controller
 {
     public function index()
     {
-        return Auction::with('bids', 'winner')->get();
+        $now = now();
+        Auction::where('active', true)
+            ->where('end_time', '<=', $now)
+            ->update(['active' => false]);
+
+        return Auction::with('bids', 'winner')->where('active', true)->get();
     }
+
 
     public function show($id)
     {
@@ -99,6 +105,6 @@ class AuctionController extends Controller
             ]);
         }
 
-        return response()->json(null); 
+        return response()->json(null);
     }
 }

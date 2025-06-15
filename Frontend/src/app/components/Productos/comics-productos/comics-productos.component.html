@@ -2,13 +2,13 @@
 
   @if (authService.isAdmin() && authService.isLoggedIn()) {
   <button *ngIf="authService.isAdmin()" (click)="toggleSidebar()" class="admin-button"> <!--TODO: borrar ngif-->
-  🛠️ Crear Cómic
-</button>
-<div class="admin-sidebar" [class.open]="isSidebarOpen">
-  <button class="close-btn" (click)="toggleSidebar()">✖</button>
-  <app-comics-admin></app-comics-admin> 
-</div>
-}
+    🛠️ Crear Cómic
+  </button>
+  <div class="admin-sidebar" [class.open]="isSidebarOpen">
+    <button class="close-btn" (click)="toggleSidebar()">✖</button>
+    <app-comics-admin></app-comics-admin>
+  </div>
+  }
 
   <!-- Botón para mostrar u ocultar el filtro -->
   <div *ngIf="!isFilterOpen" class="filter-toggle-inline">
@@ -48,13 +48,27 @@
     <button class="btn-apply" (click)="applyFilters()">Aplicar filtros</button>
   </div>
 
-  <!-- Contenedor de productos -->
-  <div class="products">
-    @for (comic of comics; track comic.id) {
-      <app-comic-list 
-        [comic]="comic"
-        (comicDeleted)="handleComicDeleted($event)">
-      </app-comic-list>
-    }
+  <!-- Contenedor de productos -->  <div class="main-content">
+    <div class="products">
+      @for (comic of pagedComics; track comic.id) {
+        <app-comic-list [comic]="comic" (comicDeleted)="handleComicDeleted($event)">
+        </app-comic-list>
+      }
+    </div>
+
+    <div class="pagination-controls">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">« Anterior</button>
+
+      <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+        <button 
+          (click)="goToPage(i + 1)" 
+          [class.active]="currentPage === i + 1">
+          {{ i + 1 }}
+        </button>
+      </ng-container>
+
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente »</button>
+    </div>
   </div>
+
 </div>

@@ -1,18 +1,19 @@
 <div class="products">
   <div class="product-card">
-    <img
-      [src]="'http://localhost:8000/storage/' + comic.image"
-      class="product-image"
-      alt="{{ comic.title }}"
-      (click)="detailComic(comic.id)"
-    />
+    <img [src]="'http://localhost:8000/storage/comics/' + comic.image" class="product-image" alt="{{ comic.title }}"
+      (click)="detailComic(comic.id)" />
     <div class="product-body">
       <h5 class="product-title">{{ comic.title }}</h5>
       <p class="product-price">{{ comic.price }} €</p>
 
       <div class="product-actions">
         <button class="btn btn-cart" (click)="addToCart()">🛒 Añadir al carrito</button>
-        <button class="btn btn-fav" (click)="addToFavorites()">❤️ Favoritos</button>
+        <button class="btn btn-fav favorite-btn" (click)="toggleFavorite()">
+          <ng-container *ngIf="isFavorite(comic.id); else notFav">❤️ Favorito</ng-container>
+          <ng-template #notFav>🤍 Añadir a Favoritos</ng-template>
+        </button>
+
+
 
         @if (authService.isAdmin()) {
         <button class="btn btn-delete" (click)="deleteComic(comic.id)">🗑️ Eliminar</button>

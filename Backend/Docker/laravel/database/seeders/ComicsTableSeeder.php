@@ -1,20 +1,299 @@
 <?php
+
+namespace Database\Seeders;
+
 use App\Models\Comic;
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ComicsTableSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        foreach (range(1, 10) as $i) {
+        $comics = [
+            // === SONIC ===
+            [
+                'title' => 'Sonic IDW Vol. 1',
+                'filename' => 'soniccollection1.jpg',
+                'description' => 'Una recopilación de las primeras aventuras de Sonic, el erizo más rápido del mundo. Este volumen incluye historias clásicas remasterizadas que capturan la esencia de la velocidad, el humor y la rivalidad eterna con el Dr. Eggman.',
+                'price' => 11.99,
+                'stock' => 25,
+                'editorial' => 'IDW',
+                'genero' => 'Aventura',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Sonic Archive Vol. 1',
+                'filename' => 'sonicarchive1.jpg',
+                'description' => 'Archivos históricos del universo Sonic que presentan los cómics originales tal como fueron publicados, ofreciendo una mirada nostálgica al origen del personaje y su evolución narrativa.',
+                'price' => 13.49,
+                'stock' => 10,
+                'editorial' => 'IDW',
+                'genero' => 'Clásico',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Sonic IDW Vol. 2',
+                'filename' => 'soniccollection (2).jpg',
+                'description' => 'Segunda entrega de esta vibrante colección que reúne las aventuras más emocionantes de Sonic y sus amigos enfrentando amenazas a través del tiempo y el espacio.',
+                'price' => 12.99,
+                'stock' => 20,
+                'editorial' => 'IDW',
+                'genero' => 'Aventura',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Sonic IDW Vol. 3',
+                'filename' => 'soniccollection (3).jpg',
+                'description' => 'En este volumen, Sonic se enfrenta a desafíos interdimensionales con nuevos aliados. Historias que amplían el universo y profundizan en su lore clásico con un toque moderno.',
+                'price' => 13.99,
+                'stock' => 18,
+                'editorial' => 'IDW',
+                'genero' => 'Ciencia Ficción',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Sonic IDW Vol. 4',
+                'filename' => 'soniccollection (4).jpg',
+                'description' => 'Sonic y Tails se enfrentan a nuevos villanos en esta colección que incluye historias llenas de acción, traiciones inesperadas y giros argumentales impactantes.',
+                'price' => 13.99,
+                'stock' => 14,
+                'editorial' => 'IDW',
+                'genero' => 'Acción',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Sonic IDW Vol. 5',
+                'filename' => 'soniccollection (5).jpg',
+                'description' => 'Último volumen de la colección que reúne las aventuras más intensas y épicas de Sonic, cerrando arcos argumentales y dejando el camino preparado para nuevas generaciones.',
+                'price' => 14.49,
+                'stock' => 15,
+                'editorial' => 'IDW',
+                'genero' => 'Épico',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+
+            // === MY HERO ACADEMIA ===
+            ...collect(range(1, 9))->map(function ($i) {
+                return [
+                    'title' => "My Hero Academia Vol. $i",
+                    'filename' => "myheroacademia$i.jpg",
+                    'description' => "La historia continúa con el volumen $i de My Hero Academia, donde los jóvenes héroes enfrentan nuevos retos en la U.A. High School, fortalecen sus habilidades y aprenden lo que realmente significa ser un héroe profesional.",
+                    'price' => 9.99,
+                    'stock' => 22,
+                    'editorial' => 'Shueshia',
+                    'genero' => 'Superhéroes',
+                    'tipo' => 'Manga',
+                    'status' => 'Disponible',
+                    'user_id' => 1,
+                ];
+            })->toArray(),
+            [
+                'title' => 'My Hero Academia Vol. 32',
+                'filename' => 'myheroacademia32.jpg',
+                'description' => 'Con la guerra de héroes en su punto más álgido, el volumen 32 ofrece una narrativa intensa, estratégica y emocional. Deku y sus compañeros deben tomar decisiones críticas que afectarán el futuro de la sociedad.',
+                'price' => 10.49,
+                'stock' => 16,
+                'editorial' => 'Shueshia',
+                'genero' => 'Acción',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'My Hero Academia Vol. 33',
+                'filename' => 'myheroacademia33.jpg',
+                'description' => 'El volumen 33 marca un punto de inflexión en la saga. Los villanos toman la delantera, y nuestros héroes se ven forzados a actuar desde las sombras. Tensión, estrategia y revelaciones sorprendentes.',
+                'price' => 10.49,
+                'stock' => 17,
+                'editorial' => 'Shueshia',
+                'genero' => 'Drama',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+
+            // === OTROS ===
+            [
+                'title' => 'Ultimate Spiderman Vol. 1',
+                'filename' => 'ultimatespiderman1.jpg',
+                'description' => 'El origen renovado del joven Peter Parker como el nuevo Spiderman. Un enfoque moderno que explora sus dilemas morales, su evolución como héroe y el impacto de la pérdida en su vida.',
+                'price' => 11.99,
+                'stock' => 13,
+                'editorial' => 'Marvel',
+                'genero' => 'Superhéroes',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Ultimate Spiderman Vol. 2',
+                'filename' => 'ultimatespiderman2.jpg',
+                'description' => 'Peter se enfrenta a sus primeros enemigos mientras aprende lo difícil que es llevar una doble vida como estudiante y superhéroe. Narrativa ágil con espectaculares ilustraciones.',
+                'price' => 11.99,
+                'stock' => 14,
+                'editorial' => 'Marvel',
+                'genero' => 'Acción',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Ultimate Spiderman Vol. 3',
+                'filename' => 'ultimatespiderman3.jpg',
+                'description' => 'Tensiones familiares, problemas escolares y enemigos cada vez más peligrosos hacen que Peter Parker deba decidir hasta dónde está dispuesto a llegar para proteger a quienes ama.',
+                'price' => 11.99,
+                'stock' => 15,
+                'editorial' => 'Marvel',
+                'genero' => 'Drama',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Ultimate Spiderman Vol. 4',
+                'filename' => 'ultimatespiderman4.jpg',
+                'description' => 'Spiderman se enfrenta a nuevos enemigos y empieza a entender que el verdadero poder viene con responsabilidades más grandes de lo que jamás imaginó.',
+                'price' => 11.99,
+                'stock' => 13,
+                'editorial' => 'Marvel',
+                'genero' => 'Superhéroes',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Ultimate Spiderman Vol. 5',
+                'filename' => 'ultimatespiderman5.jpg',
+                'description' => 'El conflicto con el Duende Verde alcanza un clímax explosivo. Este volumen cierra el primer gran arco argumental con un enfrentamiento épico que cambiará la vida de Peter.',
+                'price' => 12.49,
+                'stock' => 12,
+                'editorial' => 'Marvel',
+                'genero' => 'Acción',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Dragon Ball Vol. 1',
+                'filename' => 'dragonball1.jpg',
+                'description' => 'El inicio de la épica aventura de Goku. Desde que conoce a Bulma hasta su primer torneo de artes marciales, este volumen establece las bases de una saga legendaria.',
+                'price' => 9.99,
+                'stock' => 20,
+                'editorial' => 'Shueshia',
+                'genero' => 'Aventura',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+                        [
+                'title' => 'Dragon Ball Vol. 2',
+                'filename' => 'dragonball2.jpg',
+                'description' => 'Goku continúa su entrenamiento y se enfrenta a enemigos más poderosos. Nuevas técnicas y la introducción de personajes clave hacen de este volumen un punto crucial en la saga.',
+                'price' => 9.99,
+                'stock' => 18,
+                'editorial' => 'Shueisha',
+                'genero' => 'Aventura',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Dragon Ball Vol. 3',
+                'filename' => 'dragonball3.jpg',
+                'description' => 'Goku se enfrenta a sus primeros torneos de artes marciales y comienza a demostrar su verdadero potencial. Este volumen está lleno de combates espectaculares y momentos memorables.',
+                'price' => 9.99,
+                'stock' => 17,
+                'editorial' => 'Shueisha',
+                'genero' => 'Acción',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Dragon Ball Super Vol. 14',
+                'filename' => 'dragonballsuper14.jpg',
+                'description' => 'Con la llegada de nuevos enemigos del universo paralelo, Goku y Vegeta deben enfrentarse a desafíos que pondrán a prueba no solo su fuerza, sino su ingenio y determinación.',
+                'price' => 10.49,
+                'stock' => 20,
+                'editorial' => 'Shueisha',
+                'genero' => 'Ciencia Ficción',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Dragon Ball Super Vol. 18',
+                'filename' => 'dragonballsuper18.jpg',
+                'description' => 'Un volumen lleno de acción donde los Guerreros Z enfrentan una amenaza cósmica nunca antes vista. La intensidad de las batallas se eleva a un nuevo nivel.',
+                'price' => 10.49,
+                'stock' => 18,
+                'editorial' => 'Shueisha',
+                'genero' => 'Acción',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Dragon Ball Super Vol. 20',
+                'filename' => 'dragonballsuper20.jpg',
+                'description' => 'Una saga repleta de estrategia, nuevos niveles de poder y un enfoque más maduro en los personajes. Este volumen se destaca por su narrativa sólida y giros argumentales sorprendentes.',
+                'price' => 10.49,
+                'stock' => 19,
+                'editorial' => 'Shueisha',
+                'genero' => 'Épico',
+                'tipo' => 'Manga',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+            [
+                'title' => 'Batman Absolute Vol. 1',
+                'filename' => 'batmanabsolute1.jpg',
+                'description' => 'Edición definitiva que recopila una de las etapas más oscuras y psicológicas de Batman. Esta edición está cuidadosamente diseñada con materiales premium y contenido adicional para fans exigentes.',
+                'price' => 19.99,
+                'stock' => 10,
+                'editorial' => 'DC Comics',
+                'genero' => 'Noir / Thriller',
+                'tipo' => 'Comic',
+                'status' => 'Disponible',
+                'user_id' => 1,
+            ],
+
+        ];
+
+        foreach ($comics as $comicData) {
+            $filename = $comicData['filename'];
+            $sourcePath = database_path("imagenes/$filename");
+
+            if (file_exists($sourcePath)) {
+                Storage::disk('public')->putFileAs('comics', new \Illuminate\Http\File($sourcePath), $filename);
+            } else {
+                $this->command->warn("Imagen no encontrada: $sourcePath");
+            }
+
             Comic::create([
-                'title' => "Cómic Legendario #$i",
-                'description' => "Una edición especial y rara del cómic número $i.",
-                'price' => rand(20, 150),
-                'image' => 'comic' . $i . '.jpg',
-                'status' => 'available',
-                'user_id' => User::inRandomOrder()->first()->id,
+                'title' => $comicData['title'],
+                'description' => $comicData['description'],
+                'price' => $comicData['price'],
+                'image' => $comicData['filename'],
+                'stock' => $comicData['stock'],
+                'editorial' => $comicData['editorial'],
+                'genero' => $comicData['genero'],
+                'tipo' => $comicData['tipo'],
+                'status' => $comicData['status'],
+                'user_id' => $comicData['user_id'],
             ]);
         }
     }

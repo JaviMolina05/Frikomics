@@ -7,24 +7,28 @@ use Illuminate\Http\Request;
 
 class ComicController extends Controller
 {
-    public function index()
-    {
-        $comics = Comic::all();
+public function index()
+{
+    $comics = Comic::all();
 
-        $comicInfoView = $comics->map(function ($comic) {
-            return [
-                'id' => $comic->id,
-                'title' => $comic->title,
-                'description' => $comic->description,
-                'price' => $comic->price,
-                'stock' => $comic->stock,
-                'image' => $comic->image,
-                'user_id' => $comic->user_id,
-            ];
-        });
+    $comicInfoView = $comics->map(function ($comic) {
+        return [
+            'id' => $comic->id,
+            'title' => $comic->title,
+            'description' => $comic->description,
+            'price' => $comic->price,
+            'stock' => $comic->stock,
+            'image' => $comic->image,
+            'user_id' => $comic->user_id,
+            'tipo' => $comic->tipo,         
+            'editorial' => $comic->editorial, 
+            'genero' => $comic->genero,     
+        ];
+    });
 
-        return response()->json(['comics' => $comicInfoView]);
-    }
+    return response()->json(['comics' => $comicInfoView]);
+}
+
 
     public function show($id)
 {
@@ -50,8 +54,7 @@ class ComicController extends Controller
     return response()->json($comicInfo);
 }
 
-
-    public function store(Request $request)
+public function store(Request $request)
 {
     $validated = $request->validate([
         'title' => 'required|string',
@@ -65,10 +68,11 @@ class ComicController extends Controller
         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
 
-    // Guardar imagen
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('comics', 'public');
-        $validated['image'] = $imagePath;
+        $file = $request->file('image');
+        $filename = $file->getClientOriginalName();
+        $file->storeAs('comics', $filename, 'public');
+        $validated['image'] = $filename;
     }
 
     $validated['user_id'] = auth()->id();

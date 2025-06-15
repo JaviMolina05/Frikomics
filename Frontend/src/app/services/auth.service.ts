@@ -13,43 +13,48 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      tap((response: any) => {
-        // Ajusta según el formato exacto de tu backend
-        const token = response.data?.accessToken || response.access_token;
-        const user = response.data?.user || response.user;
+  return this.http.post('http://localhost:8000/api/login', credentials).pipe(
+    tap((response: any) => {
+      console.log('Respuesta completa del backend:', response);
 
-        if (token && user) {
-          localStorage.setItem('token', token);
-          localStorage.setItem('user', JSON.stringify(user));
-          this.userChanged.next(); // Emitir cambio
-        }
-      })
-    );
-  }
+      const token = response.data?.accessToken;
+      const user = response.data?.user;
 
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.userChanged.next(); // Emitir cambio
-  }
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('Token guardado en localStorage:', token);
+      } else {
+        console.warn('No se encontró el token en la respuesta');
+      }
+    })
+  );
+}
 
-  isLoggedIn(): boolean {
-    const token = localStorage.getItem('token');
-    return !!token;
-  }
-
-  getUserId(): number | null {
+getUserId(): number | null {
     const user = JSON.parse(localStorage.getItem('user') || 'null');
     return user?.id || null;
+  }
+
+  register(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, data);
+  }
+
+  isAdmin(): boolean {
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  return user.role === 'admin'? true: false; 
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  isAdmin(): boolean {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return user.role === 'admin';
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token; 
   }
 }

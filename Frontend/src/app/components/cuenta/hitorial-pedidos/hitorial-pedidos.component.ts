@@ -9,9 +9,9 @@ import { OrderService } from '../../../services/order.service';
 })
 export class HitorialPedidosComponent {
   pedidos: any[] = [];
- sidebarVisible = false;
+  sidebarVisible = false;
   isMobile = false;
-  constructor(private orderService: OrderService) {}
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.orderService.getOrderHistory().subscribe({

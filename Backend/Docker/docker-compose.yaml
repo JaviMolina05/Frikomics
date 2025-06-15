@@ -16,6 +16,9 @@ services:
       - db
     networks:
       - laravel
+    command: >
+      sh -c "mkdir -p storage/app/public/auctions storage/app/public/comics && php artisan serve --host=0.0.0.0 --port=8000"
+
 
   db:
     image: mysql:latest

@@ -30,7 +30,7 @@
 
 /* Panel de filtros como columna */
 .filter-panel {
-  width: 250px;
+  width: 1000px;
   background-color: #ffffff;
   padding: 1.5rem;
   border-radius: 8px;
@@ -194,4 +194,24 @@
   h5 {
     font-size: 1rem;
   }
+}
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+.pagination-controls button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+}
+.pagination-controls button.active {
+  background-color: #333;
+  color: white;
+}
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }/*# sourceMappingURL=comics-productos.component.css.map */

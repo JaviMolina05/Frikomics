@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Comic } from '../../../model/comic/comic.model';
-import { AuthService } from '../../../services/auth.service.spec';
+import { AuthService } from '../../../services/auth.service';
 
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
